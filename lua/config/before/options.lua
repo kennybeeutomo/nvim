@@ -7,13 +7,14 @@ vim.cmd([[
 	set tabstop=4
 	set shiftwidth=4
 
-	set clipboard=unnamedplus
-
-	set shell=pwsh
-	set shellcmdflag=-command
-	set shellquote=\"
-	set shellxquote=
+	set clipboard+=unnamedplus
 ]])
+
+if vim.loop.os_uname().sysname == "Windows_NT" then
+	vim.opt.shell = "pwsh"
+	vim.opt.shellcmdflag= "-command"
+	vim.opt.shellquote='\"'
+end
 
 vim.opt.fillchars = { eob = ' ' }
 
