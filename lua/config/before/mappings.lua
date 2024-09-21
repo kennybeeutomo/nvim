@@ -12,6 +12,8 @@ end, { desc = "Toggle Relative Number" })
 
 -- Buffers
 set("n", "<leader>qb", "<cmd>bd<cr>", { desc = "Delete buffer" })
+set("n", "<Tab>", "<cmd>bn<cr>", { desc = "Next Buffer" })
+set("n", "<S-Tab>", "<cmd>bN<cr>", { desc = "Previous Buffer" })
 
 -- NvimTree
 set("n", "<leader>e", "<cmd>NvimTreeFocus<cr>", { desc = "Focus NvimTree" })
