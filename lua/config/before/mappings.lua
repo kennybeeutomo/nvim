@@ -10,6 +10,14 @@ set("n", "<leader>trn", function()
 	vim.o.relativenumber = not vim.o.relativenumber
 end, { desc = "Toggle Relative Number" })
 
+-- Surround
+set("v", "<leader>s(", "c(<Esc>pa)<Esc>", { desc = "Surround in ()" })
+set("v", "<leader>s[", "c[<Esc>pa]<Esc>", { desc = "Surround in []" })
+set("v", "<leader>s{", "c{<Esc>pa}<Esc>", { desc = "Surround in {}" })
+set("v", "<leader>s\'", "c'<Esc>pa'<Esc>", { desc = "Surround in ''" })
+set("v", "<leader>s\"", "c\"<Esc>pa\"<Esc>", { desc = "Surround in \"\"" })
+set("v", "<leader>s<", "c<<Esc>pa><Esc>", { desc = "Surround in <>" })
+
 -- Buffers
 set("n", "<leader>qb", "<cmd>bd<cr>", { desc = "Delete buffer" })
 set("n", "<Tab>", "<cmd>bn<cr>", { desc = "Next Buffer" })
