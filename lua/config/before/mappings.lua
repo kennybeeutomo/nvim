@@ -39,6 +39,24 @@ set("t", "<M-v>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 
+-- Run / Compile
+set("n", "<leader>r", function()
+	local filetype = vim.bo.filetype
+
+	local commands = {
+		python = function() vim.cmd("!" .. vim.api.nvim_buf_get_name(0)) end,
+		c = function () vim.cmd("!make && make run") end,
+		cpp = function () vim.cmd("!make && make run") end,
+	}
+
+	if commands[filetype] then
+		commands[filetype]()
+	else
+		print("No run command for " .. filetype .. " yet")
+	end
+
+end, { desc = "Run / Compile" })
+
 -- Windows
 set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })
 set("n", "<leader>wh", "<C-w>s", { desc = "New horizontal window" })
