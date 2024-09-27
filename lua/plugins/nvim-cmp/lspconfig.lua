@@ -40,3 +40,7 @@ lspconfig.html.setup {
 lspconfig.cssls.setup {
 	capabilities = capabilities
 }
+
+lspconfig.pylsp.setup {
+	capabilities = capabilities
+}
