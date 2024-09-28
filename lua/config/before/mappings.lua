@@ -40,22 +40,41 @@ set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 
 -- Run / Compile
-set("n", "<leader>r", function()
+local function execTerm(command, focus)
+	if focus then
+		vim.cmd("TermExec cmd=\"" .. command .. "\" go_back=0")
+	else
+		vim.cmd("TermExec cmd=\"" .. command .. "\"")
+	end
+end
+
+local function runOrCompile(opts)
+	opts = opts or {}
+	local cls = opts.cls or false
+	local focus = opts.focus or false
 	local filetype = vim.bo.filetype
 
+	local function exec(command)
+		execTerm(command, focus)
+	end
+
 	local commands = {
-		python = function() vim.cmd("!" .. vim.api.nvim_buf_get_name(0)) end,
-		c = function () vim.cmd("!make && make run") end,
-		cpp = function () vim.cmd("!make && make run") end,
+		python = function() exec(vim.api.nvim_buf_get_name(0)) end,
+		c = function () exec("make && make run") end,
+		cpp = function () exec("make && make run") end,
 	}
 
 	if commands[filetype] then
+		if cls then exec("cls") end
 		commands[filetype]()
 	else
 		print("No run command for " .. filetype .. " yet")
 	end
+end
 
-end, { desc = "Run / Compile" })
+set("n", "<leader>rr", function() runOrCompile() end, { desc = "Run / Compile" })
+set("n", "<leader>rn", function() runOrCompile({cls = true}) end, { desc = "Run / Compile then clear" })
+set("n", "<leader>rf", function() runOrCompile({focus = true}) end, { desc = "Run / Compile then focus" })
 
 -- Windows
 set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })
