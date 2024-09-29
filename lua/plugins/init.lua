@@ -12,6 +12,8 @@ require("plugins.nightowl.init")
 require("plugins.lualine.init")
 require("plugins.toggleterm.init")
 require("plugins.telescope.init")
+require("plugins.gitsigns.init")
+
 require("plugins.colorizer.init")
 require("plugins.duckytype.init")
 -- require("plugins.markdownpreview.init")
