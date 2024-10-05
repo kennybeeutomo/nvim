@@ -40,22 +40,23 @@ set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 
 -- Run / Compile
-local function execTerm(command, focus)
-	if focus then
+vim.g.termcls = true
+vim.g.termfocus = false
+vim.g.termsize = 15
+
+local function execTerm(command)
+	if vim.g.termfocus then
 		vim.cmd("TermExec cmd=\"" .. command .. "\" go_back=0")
 	else
 		vim.cmd("TermExec cmd=\"" .. command .. "\"")
 	end
 end
 
-local function runOrCompile(opts)
-	opts = opts or {}
-	local cls = opts.cls or false
-	local focus = opts.focus or false
+local function runOrCompile()
 	local filetype = vim.bo.filetype
 
 	local function exec(command)
-		execTerm(command, focus)
+		execTerm(command)
 	end
 
 	local commands = {
@@ -65,7 +66,7 @@ local function runOrCompile(opts)
 	}
 
 	if commands[filetype] then
-		if cls then exec("cls") end
+		if vim.g.termcls then exec("cls") end
 		commands[filetype]()
 	else
 		print("No run command for " .. filetype .. " yet")
@@ -73,8 +74,9 @@ local function runOrCompile(opts)
 end
 
 set("n", "<leader>rr", function() runOrCompile() end, { desc = "Run / Compile" })
-set("n", "<leader>rn", function() runOrCompile({cls = true}) end, { desc = "Run / Compile then clear" })
-set("n", "<leader>rf", function() runOrCompile({focus = true}) end, { desc = "Run / Compile then focus" })
+set("n", "<leader>rc", function() vim.g.termcls = not vim.g.termcls end, { desc = "Toggle cls" })
+set("n", "<leader>rf", function() vim.g.termfocus = not vim.g.termfocus end, { desc = "Toggle focus" })
+set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><cmd>wincmd p<cr>", { desc = "Reset terminal window size" })
 
 -- Windows
 set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })
