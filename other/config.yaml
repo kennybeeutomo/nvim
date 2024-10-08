@@ -1,0 +1,25 @@
+# ------------ [ C ] ------------
+---
+If:
+  PathMatch: .*\.c
+CompileFlags:
+  Compiler: C:/msys64/ucrt64/bin/gcc
+  Add: [-xc, -Wall, --target=x86_64-w64-windows-gnu]
+
+Diagnostics:
+  UnusedIncludes: None
+  #Suppress: -Wunused
+...
+
+# ------------ [ C++ ] ------------
+---
+If:
+  PathMatch: .*\.cpp
+CompileFlags:
+  Compiler: C:/msys64/ucrt64/bin/g++
+  Add: [-xc++, -std=c++17, -Wall, --target=x86_64-w64-windows-gnu]
+
+Diagnostics:
+  UnusedIncludes: None
+  #Suppress: -Wunused
+...
