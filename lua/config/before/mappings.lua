@@ -44,7 +44,7 @@ vim.g.termcls = true
 vim.g.termfocus = false
 vim.g.termsize = 15
 
-local function execTerm(command)
+local function exec(command)
 	if vim.g.termfocus then
 		vim.cmd("TermExec cmd=\"" .. command .. "\" go_back=0")
 	else
@@ -52,17 +52,22 @@ local function execTerm(command)
 	end
 end
 
-local function runOrCompile()
+local function runOrCompile(opts)
+	setmetatable(opts, {__index={
+		compile = true
+	}})
+
 	local filetype = vim.bo.filetype
 
-	local function exec(command)
-		execTerm(command)
+	local function make()
+		if opts.compile then exec("make") end
+		exec("make run")
 	end
 
 	local commands = {
 		python = function() exec(vim.api.nvim_buf_get_name(0)) end,
-		c = function () exec("make && make run") end,
-		cpp = function () exec("make && make run") end,
+		c = function() make() end,
+		cpp = function() make() end,
 	}
 
 	if commands[filetype] then
@@ -73,10 +78,16 @@ local function runOrCompile()
 	end
 end
 
-set("n", "<leader>rr", function() runOrCompile() end, { desc = "Run / Compile" })
+set("n", "<leader>rr", function() runOrCompile{} end, { desc = "Run / Compile" })
+set("n", "<leader>rn", function() runOrCompile{compile = false} end, { desc = "Just Run" })
 set("n", "<leader>rc", function() vim.g.termcls = not vim.g.termcls end, { desc = "Toggle cls" })
 set("n", "<leader>rf", function() vim.g.termfocus = not vim.g.termfocus end, { desc = "Toggle focus" })
-set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><cmd>wincmd p<cr>", { desc = "Reset terminal window size" })
+set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><cmd>wincmd p<cr>",
+	{ desc = "Reset terminal window size" })
+set({"n", "t"}, "<M-q>", [[<cmd>TermExec cmd="exit"<cr>]], { desc = "Exit terminal" })
+
+-- Yazi
+set("n", "<leader>y", [[<cmd>TermExec direction=float cmd="function ex{exit} yazi && ex"<cr>]], { desc = "Open Yazi in floating window" })
 
 -- Windows
 set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })
