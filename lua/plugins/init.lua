@@ -17,3 +17,5 @@ require("plugins.gitsigns.init")
 require("plugins.colorizer.init")
 require("plugins.duckytype.init")
 -- require("plugins.markdownpreview.init")
+
+require("plugins.autosave.init")

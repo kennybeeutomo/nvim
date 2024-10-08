@@ -40,10 +40,6 @@ set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 
 -- Run / Compile
-vim.g.termcls = true
-vim.g.termfocus = false
-vim.g.termsize = 15
-
 local function exec(command)
 	if vim.g.termfocus then
 		vim.cmd("TermExec cmd=\"" .. command .. "\" go_back=0")
@@ -130,6 +126,9 @@ set("n", "<esc>", "<cmd>noh<cr>")
 
 -- WhichKey
 set("n", "\\", "<cmd>WhichKey<cr>")
+
+-- AutoSave
+set("n", "<leader>tas", function() vim.g.autosave = not vim.g.autosave end, { desc = "Toggle Auto Save" })
 
 -- -- Command Mode
 -- set("n", ":", "q:i", { desc = "Open command mode in vim mode" })

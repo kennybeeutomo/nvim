@@ -25,6 +25,11 @@ vim.opt.fillchars = { eob = ' ' }
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
+vim.g.termcls = true
+vim.g.termfocus = false
+vim.g.termsize = 15
+vim.g.autosave = false
+
 -- NEOVIDE ONLY
 vim.g.neovide_transparency = 0.8
 vim.g.neovide_remember_window_size = true

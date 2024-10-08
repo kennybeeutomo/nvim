@@ -91,16 +91,8 @@ require("lazy").setup({
 		cmd = { "LiveServerStart", "LiveServerStop" },
 		config = true
 	},
-	{
-		'derektata/lorem.nvim',
-		config = function()
-			require('lorem').opts {
-				sentenceLength = "medium",
-				comma_chance = 0.2,
-				max_commas_per_sentence = 2,
-			}
-		end
-	},
 
 	'lewis6991/gitsigns.nvim',
+
+	'pocco81/auto-save.nvim',
 })
