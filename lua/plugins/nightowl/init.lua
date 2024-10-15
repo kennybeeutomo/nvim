@@ -7,6 +7,7 @@ require("night-owl").setup({
 })
 
 local palette = require("night-owl.palette")
-vim.api.nvim_set_hl(0, "@type.builtin", { fg = palette.magenta3, bg = "NONE" })
 
 vim.cmd.colorscheme("night-owl")
+
+vim.api.nvim_set_hl(0, "@type.builtin", { fg = palette.magenta3, bg = "NONE" })
