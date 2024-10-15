@@ -50,25 +50,37 @@ end
 
 local function runOrCompile(opts)
 	setmetatable(opts, {__index={
-		compile = true
+		compile = true,
 	}})
 
 	local filetype = vim.bo.filetype
 
+	local command = ""
+	local beforeCommands = ""
+	local afterCommands = ""
+
+	if vim.g.termquit then
+		afterCommands = afterCommands .. " && cmd /c pause; exit"
+	end
+
 	local function make()
-		if opts.compile then exec("make") end
-		exec("make run")
+		if opts.compile then
+			return "make && make run"
+		else
+			return "make run"
+		end
 	end
 
 	local commands = {
-		python = function() exec(vim.api.nvim_buf_get_name(0)) end,
-		c = function() make() end,
-		cpp = function() make() end,
+		python = function() command = vim.api.nvim_buf_get_name(0) end,
+		c = function() command = make() end,
+		cpp = function() command = make() end,
 	}
 
 	if commands[filetype] then
 		if vim.g.termcls then exec("cls") end
 		commands[filetype]()
+		exec(beforeCommands .. command .. afterCommands)
 	else
 		print("No run command for " .. filetype .. " yet")
 	end
@@ -76,6 +88,7 @@ end
 
 set("n", "<leader>rr", function() runOrCompile{} end, { desc = "Run / Compile" })
 set("n", "<leader>rn", function() runOrCompile{compile = false} end, { desc = "Just Run" })
+set("n", "<leader>rq", function() vim.g.termquit = not vim.g.termquit end, { desc = "Toggle quit" })
 set("n", "<leader>rc", function() vim.g.termcls = not vim.g.termcls end, { desc = "Toggle cls" })
 set("n", "<leader>rf", function() vim.g.termfocus = not vim.g.termfocus end, { desc = "Toggle focus" })
 set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><cmd>wincmd p<cr>",
@@ -83,7 +96,7 @@ set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><c
 set({"n", "t"}, "<M-q>", [[<cmd>TermExec cmd="exit"<cr>]], { desc = "Exit terminal" })
 
 -- Yazi
-set("n", "<leader>y", [[<cmd>TermExec direction=float cmd="function ex{exit} yazi && ex"<cr>]], { desc = "Open Yazi in floating window" })
+set("n", "<leader>y", [[<cmd>TermExec direction=float cmd="yazi; exit"<cr>]], { desc = "Open Yazi in floating window" })
 
 -- Windows
 set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })

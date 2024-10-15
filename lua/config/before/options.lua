@@ -26,8 +26,9 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.g.termcls = true
-vim.g.termfocus = false
+vim.g.termfocus = true
 vim.g.termsize = 15
+vim.g.termquit = true
 vim.g.autosave = false
 
 -- NEOVIDE ONLY
