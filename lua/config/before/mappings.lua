@@ -41,11 +41,17 @@ set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 
 -- Run / Compile
 local function exec(command)
+	local after = ""
+
 	if vim.g.termfocus then
-		vim.cmd("TermExec cmd=\"" .. command .. "\" go_back=0")
-	else
-		vim.cmd("TermExec cmd=\"" .. command .. "\"")
+		after = after .. " go_back=0"
 	end
+
+	if vim.g.termfull then
+		after = after .. " direction=tab"
+	end
+
+	vim.cmd("TermExec cmd=\"" .. command .. "\"" .. after)
 end
 
 local function runOrCompile(opts)
@@ -60,15 +66,22 @@ local function runOrCompile(opts)
 	local afterCommands = ""
 
 	if vim.g.termquit then
-		afterCommands = afterCommands .. " && cmd /c pause; exit"
+		afterCommands = afterCommands .. "; cmd /c pause; exit"
 	end
 
 	local function make()
+		local makeCommand = ""
 		if opts.compile then
-			return "make && make run"
-		else
-			return "make run"
+			makeCommand = makeCommand .. "make && "
 		end
+
+		if vim.g.termtest then
+			makeCommand = makeCommand .. "make test"
+		else
+			makeCommand = makeCommand .. "make run"
+		end
+
+		return makeCommand
 	end
 
 	local commands = {
@@ -91,12 +104,15 @@ set("n", "<leader>rn", function() runOrCompile{compile = false} end, { desc = "J
 set("n", "<leader>rq", function() vim.g.termquit = not vim.g.termquit end, { desc = "Toggle quit" })
 set("n", "<leader>rc", function() vim.g.termcls = not vim.g.termcls end, { desc = "Toggle cls" })
 set("n", "<leader>rf", function() vim.g.termfocus = not vim.g.termfocus end, { desc = "Toggle focus" })
+set("n", "<leader>rt", function() vim.g.termtest = not vim.g.termtest end, { desc = "Toggle test" })
+set("n", "<leader>rF", function() vim.g.termfull = not vim.g.termtest end, { desc = "Toggle fullscreen" })
 set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><cmd>wincmd p<cr>",
 	{ desc = "Reset terminal window size" })
 set({"n", "t"}, "<M-q>", [[<cmd>TermExec cmd="exit"<cr>]], { desc = "Exit terminal" })
 
--- Yazi
+-- Programs
 set("n", "<leader>y", [[<cmd>TermExec direction=float cmd="yazi; exit"<cr>]], { desc = "Open Yazi in floating window" })
+set("n", "<leader>x", [[<cmd>!explorer .<cr><cr>]], { desc = "Open windows explorer" })
 
 -- Windows
 set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })
