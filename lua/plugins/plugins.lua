@@ -95,4 +95,11 @@ require("lazy").setup({
 	'lewis6991/gitsigns.nvim',
 
 	'pocco81/auto-save.nvim',
+
+	{
+		"nvim-neorg/neorg",
+		lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		version = "*", -- Pin Neorg to the latest stable release
+		config = true,
+	},
 })
