@@ -1,8 +1,7 @@
 require('lualine').setup {
 	options = {
 		icons_enabled = true,
-		theme = 'night-owl',
-		-- theme = 'nord',
+		theme = vim.g.pywal and 'pywal16-nvim' or 'night-owl',
 		component_separators = { left = '|', right = '|'},
 		section_separators = { left = ' ', right = ' '},
 		disabled_filetypes = {

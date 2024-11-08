@@ -1,15 +1,4 @@
-vim.cmd([[
-	set number
-	set relativenumber
-
-	set ignorecase
-
-	set tabstop=4
-	set shiftwidth=4
-
-	set clipboard+=unnamedplus
-]])
-
+-- Set shell to pwsh if on Windows
 if vim.loop.os_uname().sysname == "Windows_NT" then
 	vim.cmd([[
 	let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
@@ -20,10 +9,29 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
 	]])
 end
 
+-- OPTIONS
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.ignorecase = true
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+
+vim.opt.clipboard:append("unnamedplus")
+
 vim.opt.fillchars = { eob = ' ' }
+
+-- Set oldfiles limit to 1000
+vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'1000", 1)
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+vim.opt.termguicolors = true
+
+-- GLOBAL VARIABLES
+vim.g.pywal = true
 
 vim.g.termcls = true
 vim.g.termfocus = true
@@ -31,6 +39,7 @@ vim.g.termsize = 15
 vim.g.termquit = true
 vim.g.termtest = false
 vim.g.termfull = false
+
 vim.g.autosave = false
 
 -- NEOVIDE ONLY

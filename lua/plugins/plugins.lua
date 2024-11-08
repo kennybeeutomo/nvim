@@ -42,11 +42,6 @@ require("lazy").setup({
 	},
 
 	{
-		"shaunsingh/nord.nvim",
-		lazy = true,
-	},
-
-	{
 		'windwp/nvim-autopairs',
 		lazy = true,
 		event = "InsertEnter",
@@ -70,8 +65,8 @@ require("lazy").setup({
 	{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
 	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.5',
-		dependencies = { 'nvim-lua/plenary.nvim' }
+		'nvim-telescope/telescope.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim', },
 	},
 
 	{
@@ -98,8 +93,24 @@ require("lazy").setup({
 
 	{
 		"nvim-neorg/neorg",
-		lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+		-- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
 		version = "*", -- Pin Neorg to the latest stable release
-		config = true,
+		-- config = true,
 	},
+	{
+		'uZer/pywal16.nvim',
+		-- for local dev replace with:
+		-- dir = '~/your/path/pywal16.nvim',
+		-- config = function()
+		-- 	vim.cmd.colorscheme("pywal16")
+		-- end,
+	},
+	{
+		"rachartier/tiny-devicons-auto-colors.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons"
+		},
+		event = "VeryLazy",
+	},
+	"Ron89/thesaurus_query.vim",
 })

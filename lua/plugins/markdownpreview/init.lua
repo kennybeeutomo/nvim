@@ -111,3 +111,5 @@ let g:mkdp_combine_preview = 0
 " only when g:mkdp_combine_preview is 1
 let g:mkdp_combine_preview_auto_refresh = 1
 ]])
+
+require("plugins.markdownpreview.mappings")

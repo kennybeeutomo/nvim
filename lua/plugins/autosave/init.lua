@@ -33,3 +33,5 @@ require("auto-save").setup{
 		after_saving = nil -- ran after doing the actual save
 	}
 }
+
+require("plugins.autosave.mappings")
