@@ -1,24 +1,30 @@
-require("plugins.lazyinit")
-require("plugins.plugins")
+local function load(files)
+	for _, file in pairs(files) do
+		require("plugins." .. file)
+	end
+end
 
-require("plugins.mason.init")
-require("plugins.treesitter.init")
-require("plugins.nvtree.init")
+-- in order
+load({
+	"lazyinit",
+	"plugins",
 
-require("plugins.nightowl.init")
-require("plugins.pywal16.init")
+	"mason",
+	"treesitter",
 
-require("plugins.gitsigns.init")
-require("plugins.lualine.init")
-require("plugins.toggleterm.init")
-require("plugins.telescope.init")
+	-- "devicons-auto-colors",
+	"nvtree",
+	"lualine",
+	"gitsigns",
+	"toggleterm",
+	"telescope",
 
-require("plugins.colorizer.init")
-require("plugins.duckytype.init")
-require("plugins.markdownpreview.init")
+	"colorizer",
+	-- "duckytype",
+	-- "markdownpreview",
 
-require("plugins.autosave.init")
-require("plugins.neorg.init")
-require("plugins.devicons-auto-colors.init")
+	"autosave",
+	-- "neorg",
 
-require("plugins.nvim-cmp.init")
+	"nvim-cmp",
+})

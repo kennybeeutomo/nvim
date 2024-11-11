@@ -1,4 +1,11 @@
-local before = "config.before."
+local function before(files)
+	for _,file in pairs(files) do
+		require("config.before." .. file)
+	end
+end
 
-require(before .. "options")
-require(before .. "mappings")
+before({
+	"options",
+	"mappings",
+	"autocommands",
+})

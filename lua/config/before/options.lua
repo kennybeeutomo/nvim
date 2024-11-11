@@ -1,4 +1,5 @@
 -- Set shell to pwsh if on Windows
+-- See :h shell-powershell
 if vim.loop.os_uname().sysname == "Windows_NT" then
 	vim.cmd([[
 	let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
@@ -25,14 +26,13 @@ vim.opt.fillchars = { eob = ' ' }
 -- Set oldfiles limit to 1000
 vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'1000", 1)
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldlevel = 20
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.opt.termguicolors = true
 
 -- GLOBAL VARIABLES
-vim.g.pywal = true
-
 vim.g.termcls = true
 vim.g.termfocus = true
 vim.g.termsize = 15

@@ -6,6 +6,13 @@ require("neorg").setup({
 				icon_preset = "diamond",
 			},
 		},
+		["core.dirman"] = {
+			config = {
+				workspaces = {
+					life = "~/neorg/life",
+				},
+			},
+		},
 		-- ["core.keybinds"] = {
 		-- 	config = {
 		-- 		default_keybinds = false,

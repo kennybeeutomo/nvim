@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 local set = vim.keymap.set
 
 -- General
@@ -46,7 +47,7 @@ end, { desc = "clang-format current file" })
 set("n", "<esc>", "<cmd>noh<cr>")
 
 -- WhichKey
-set("n", "\\", "<cmd>WhichKey<cr>")
+set("n", "g?", "<cmd>WhichKey<cr>")
 
 -- -- Command Mode
 set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
