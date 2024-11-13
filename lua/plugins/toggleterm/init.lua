@@ -1,3 +1,9 @@
-require("toggleterm").setup{}
+local M = {}
 
-require("plugins.toggleterm.mappings")
+function M.setup()
+	require("toggleterm").setup{}
+
+	require("plugins.toggleterm.mappings")
+end
+
+return M

@@ -1,14 +1,14 @@
+require("plugins.lazyinit")
+require("plugins.plugins")
+
 local function load(files)
 	for _, file in pairs(files) do
-		require("plugins." .. file)
+		require("plugins." .. file).setup()
 	end
 end
 
 -- in order
 load({
-	"lazyinit",
-	"plugins",
-
 	"mason",
 	"treesitter",
 
