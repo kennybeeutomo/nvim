@@ -23,6 +23,8 @@ vim.opt.clipboard:append("unnamedplus")
 
 vim.opt.fillchars = { eob = ' ' }
 
+vim.opt.showmode = false
+
 -- Set oldfiles limit to 1000
 vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'1000", 1)
 

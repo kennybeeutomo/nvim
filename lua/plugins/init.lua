@@ -12,9 +12,9 @@ load({
 	"mason",
 	"treesitter",
 
-	-- "devicons-auto-colors",
 	"nvtree",
 	"lualine",
+	"bufferline",
 	"gitsigns",
 	"toggleterm",
 	"telescope",

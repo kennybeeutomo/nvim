@@ -1,25 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-
-local function loadColorscheme(colorscheme, pre)
-	-- Get the vimrc directory
-	local vimrcPath = vim.fn.substitute(vim.fn.expand("$MYVIMRC"), "init.lua", "", "")
-	-- Get the colorschemes directory
-	local colorschemesPath = vim.fn.glob(vimrcPath .. "lua/plugins/colorschemes/")
-	-- Get the list of colorschemes in that directory
-	local colorschemes = vim.fn.split(vim.fn.glob(colorschemesPath .. "*"), '\n')
-	-- If colorscheme exists in the list, then load it
-	for _,v in pairs(colorschemes) do
-		local colorschemeFullPath = vim.fn.glob(colorschemesPath .. colorscheme)
-		if v == colorschemeFullPath then
-			if pre then
-				require("plugins.colorschemes." .. colorscheme .. ".before").setup()
-			else
-				require("plugins.colorschemes." .. colorscheme .. ".after").setup()
-			end
-		end
-	end
-end
+local utils = require("utils")
 
 local colorscheme_conf = augroup("colorscheme_conf", { clear = true })
 autocmd({"ColorSchemePre"}, {
@@ -34,7 +15,9 @@ autocmd({"ColorSchemePre"}, {
 	pattern = "*",
 	group = colorscheme_conf,
 	callback = function(args)
-		loadColorscheme(args.match, true)
+		if utils.colorschemeExists(args.match) then
+			require("plugins.colorschemes." .. args.match .. ".before").setup()
+		end
 	end,
 	desc = "Load custom configurations before applying a colorscheme"
 })
@@ -42,7 +25,9 @@ autocmd({"ColorScheme"}, {
 	pattern = "*",
 	group = colorscheme_conf,
 	callback = function(args)
-		loadColorscheme(args.match, false)
+		if utils.colorschemeExists(args.match) then
+			require("plugins.colorschemes." .. args.match .. ".after").setup()
+		end
 	end,
 	desc = "Load custom configurations after applying a colorscheme"
 })
@@ -53,6 +38,14 @@ autocmd({"ColorScheme"}, {
 		require("plugins.lualine").setup(args.match)
 	end,
 	desc = "Load lualine theme based on the chosen colorscheme"
+})
+autocmd({"ColorScheme"}, {
+	pattern = "*",
+	group = colorscheme_conf,
+	callback = function(args)
+		require("plugins.devicons-auto-colors").apply(args.match)
+	end,
+	desc = "Load devicons auto colors based on the chosen colorscheme"
 })
 
 -- The events on which lualine redraws itself

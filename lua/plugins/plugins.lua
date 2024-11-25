@@ -15,8 +15,8 @@ require("lazy").setup({
 		},
 		event = "VeryLazy",
 		config = function()
-			require("plugins.devicons-auto-colors")
-		end,
+			require("plugins.devicons-auto-colors").setup()
+		end
 	},
 	{ "nvim-tree/nvim-tree.lua", },
 
@@ -24,6 +24,7 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
 
 	{ "lewis6991/gitsigns.nvim", },
 
@@ -46,7 +47,7 @@ require("lazy").setup({
 		"kwakzalver/duckytype.nvim",
 		cmd = { "DuckyType" },
 		config = function()
-			require("plugins.duckytype")
+			require("plugins.duckytype").setup()
 		end
 	},
 	{
@@ -55,7 +56,7 @@ require("lazy").setup({
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
 		config = function()
-			require("plugins.markdownpreview")
+			require("plugins.markdownpreview").setup()
 		end,
 	},
 
@@ -65,9 +66,10 @@ require("lazy").setup({
 	{
 		"nvim-neorg/neorg",
 		cmd = "Neorg",
+		ft = "norg",
 		version = "*",
 		config = function()
-			require("plugins.neorg")
+			require("plugins.neorg").setup()
 		end,
 	},
 
@@ -107,7 +109,11 @@ require("lazy").setup({
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 
-	{ "L3MON4D3/LuaSnip" },
+	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		build = "make install_jsregexp"
+	},
 	{ "saadparwaiz1/cmp_luasnip" },
 
 	{

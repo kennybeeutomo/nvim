@@ -34,7 +34,7 @@ function M.setup(theme)
 			globalstatus = false,
 			refresh = {
 				statusline = 1000,
-				tabline = 1000,
+				-- tabline = 1000,
 				winbar = 1000,
 			}
 		},
@@ -54,21 +54,21 @@ function M.setup(theme)
 			lualine_y = {},
 			lualine_z = {}
 		},
-		tabline = {
-			lualine_a = {
-				{
-					"buffers",
-					symbols = {
-						alternate_file = ""
-					}
-				}
-			},
-			lualine_b = {},
-			lualine_c = {},
-			lualine_x = {},
-			lualine_y = {},
-			lualine_z = {}
-		},
+		-- tabline = {
+		-- 	lualine_a = {
+		-- 		{
+		-- 			"buffers",
+		-- 			symbols = {
+		-- 				alternate_file = ""
+		-- 			}
+		-- 		}
+		-- 	},
+		-- 	lualine_b = {},
+		-- 	lualine_c = {},
+		-- 	lualine_x = {},
+		-- 	lualine_y = {},
+		-- 	lualine_z = {}
+		-- },
 		winbar = {},
 		inactive_winbar = {},
 		extensions = {}

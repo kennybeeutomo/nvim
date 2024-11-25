@@ -32,14 +32,6 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s", "c" }),
-
-		["<C-h>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.close()
-			else
-				fallback()
-			end
-		end, { "i", "s", "c" }),
 	},
 })
 

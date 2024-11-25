@@ -6,6 +6,10 @@ local set = vim.keymap.set
 set("n", "<leader>qq", "<cmd>qa!<cr>", { desc = "Quit All" })
 set("n", "<leader>qw", "<cmd>wqa!<cr>", { desc = "Save and quit All" })
 
+-- Navigation
+set({"n", "v"}, "j", "gj")
+set({"n", "v"}, "k", "gk")
+
 -- Options
 set("n", "<leader>trn", function()
 	vim.o.relativenumber = not vim.o.relativenumber
@@ -34,8 +38,7 @@ set("n", "<leader>wh", "<C-w>s", { desc = "New horizontal window" })
 set("n", "<leader>a", "ggVG", { desc = "Select all" })
 
 -- Fold
-set("n", "<leader>o", "zo", { desc = "Open fold" })
-set("n", "<leader>O", "zc", { desc = "Close fold" })
+set("n", "<leader>o", "za", { desc = "Toggle fold" })
 
 -- Format
 set("n", "<leader>\\f", function()
@@ -49,5 +52,8 @@ set("n", "<esc>", "<cmd>noh<cr>")
 -- WhichKey
 set("n", "g?", "<cmd>WhichKey<cr>")
 
--- -- Command Mode
+-- Command Mode
 set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
+
+-- Terminal
+set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Go to normal mode in terminal" })
