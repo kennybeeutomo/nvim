@@ -17,4 +17,15 @@ function M.colorschemeExists(colorscheme)
 	return false
 end
 
+function M.isWindows()
+	if vim.loop.os_uname().sysname == "Windows_NT" then
+		return true
+	end
+	return false
+end
+
+function M.getShell()
+	return vim.api.nvim_get_option("shell")
+end
+
 return M

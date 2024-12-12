@@ -1,3 +1,4 @@
+local utils = require("utils")
 local set = vim.keymap.set
 
 -- General
@@ -35,7 +36,17 @@ local function runOrCompile(opts)
 	local afterCommands = ""
 
 	if vim.g.termquit then
-		afterCommands = afterCommands .. "; cmd /c pause; exit"
+		if utils.isWindows() then
+			afterCommands = afterCommands .. "; cmd /c pause; exit"
+		else
+			local shell = utils.getShell()
+			afterCommands = afterCommands .. "; echo Press any key to continue..."
+			if shell == "/bin/zsh" then
+				afterCommands = afterCommands .. "; read -k 1 -sr; exit"
+			elseif shell == "/bin/bash" or shell == "/dev/sh" then
+				afterCommands = afterCommands .. "; read -n1 -sr; exit"
+			end
+		end
 	end
 
 	local function make()
@@ -81,4 +92,6 @@ set({"n", "t"}, "<M-q>", [[<cmd>TermExec cmd="exit"<cr>]], { desc = "Exit termin
 
 -- Programs
 set("n", "<leader>y", [[<cmd>TermExec direction=float cmd="yazi; exit"<cr>]], { desc = "Open Yazi in floating window" })
-set("n", "<leader>x", [[<cmd>!explorer .<cr><cr>]], { desc = "Open windows explorer" })
+if utils.isWindows() then
+	set("n", "<leader>x", [[<cmd>!explorer .<cr><cr>]], { desc = "Open windows explorer" })
+end
