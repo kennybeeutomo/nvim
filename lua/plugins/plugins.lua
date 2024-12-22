@@ -1,3 +1,12 @@
+local utils = require("utils")
+local luasnipBuild = function()
+	if utils.isWindows() then
+		return "make install_jsregexp CC=gcc.exe SHELL=C:/Program\\ Files/Git/bin/sh.exe .SHELLFLAGS=-c"
+	else
+		return "make install_jsregexp"
+	end
+end
+
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 
@@ -112,7 +121,7 @@ require("lazy").setup({
 	{
 		"L3MON4D3/LuaSnip",
 		version = "v2.*",
-		build = "make install_jsregexp CC=gcc.exe SHELL=C:/Program\\ Files/Git/bin/sh.exe .SHELLFLAGS=-c"
+		build = luasnipBuild
 	},
 	{ "saadparwaiz1/cmp_luasnip" },
 

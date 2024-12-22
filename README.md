@@ -8,3 +8,4 @@
 - yazi (For file managing)
 - JetBrainsMono Nerd Font (Font for devicons)
 - npm (For live-server.nvim)
+- pywal16
