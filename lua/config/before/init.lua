@@ -7,5 +7,4 @@ end
 before({
 	"options",
 	"mappings",
-	"autocommands",
 })

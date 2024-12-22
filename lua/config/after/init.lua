@@ -5,6 +5,7 @@ local function after(files)
 end
 
 after({
+	"autocommands"
 })
 
 vim.cmd.colorscheme("pywal16")
