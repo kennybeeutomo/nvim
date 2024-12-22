@@ -16,7 +16,7 @@ autocmd({"ColorSchemePre"}, {
 	group = colorscheme_conf,
 	callback = function(args)
 		if utils.colorschemeExists(args.match) then
-			require("plugins.colorschemes." .. args.match .. ".before").setup()
+			utils.loadcolorscheme(args.match, true)
 		end
 	end,
 	desc = "Load custom configurations before applying a colorscheme"
@@ -26,7 +26,7 @@ autocmd({"ColorScheme"}, {
 	group = colorscheme_conf,
 	callback = function(args)
 		if utils.colorschemeExists(args.match) then
-			require("plugins.colorschemes." .. args.match .. ".after").setup()
+			utils.loadcolorscheme(args.match, false)
 		end
 	end,
 	desc = "Load custom configurations after applying a colorscheme"

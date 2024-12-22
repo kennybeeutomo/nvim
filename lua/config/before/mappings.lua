@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 local set = vim.keymap.set
@@ -30,10 +32,6 @@ set("n", "H", "<cmd>bN<cr>", { desc = "Previous Buffer" })
 -- Beautifier
 set("n", "<leader>s", "T{i<cr><esc>t}a<cr><esc>", { desc = "Expand curly braces" })
 
--- Windows
-set("n", "<leader>wv", "<C-w>v", { desc = "New vertical window" })
-set("n", "<leader>wh", "<C-w>s", { desc = "New horizontal window" })
-
 -- Selection
 set("n", "<leader>a", "ggVG", { desc = "Select all" })
 
@@ -57,3 +55,6 @@ set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
 
 -- Terminal
 set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Go to normal mode in terminal" })
+
+-- pywal16
+set("n", "<leader>pw", utils.refreshpywal, { desc = "Reload pywal16" })

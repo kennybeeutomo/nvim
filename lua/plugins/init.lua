@@ -20,11 +20,7 @@ load({
 	"telescope",
 
 	"colorizer",
-	-- "duckytype",
-	-- "markdownpreview",
-
 	"autosave",
-	-- "neorg",
 
 	"nvim-cmp",
 })

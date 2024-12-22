@@ -17,6 +17,28 @@ function M.colorschemeExists(colorscheme)
 	return false
 end
 
+function M.loadcolorscheme(colorscheme, before)
+	if colorscheme == "pywal16" and vim.fn.executable("wal") ~= 1 then
+		vim.print("pywal16 not installed!")
+		return 1
+	end
+
+	if before then
+		require("plugins.colorschemes." .. colorscheme .. ".before").setup()
+	else
+		require("plugins.colorschemes." .. colorscheme .. ".after").setup()
+	end
+
+	return 0
+end
+
+function M.refreshpywal()
+	if M.isWindows() then
+		vim.cmd("silent !wwal")
+	end
+	vim.cmd.colorscheme("pywal16")
+end
+
 function M.isWindows()
 	if vim.loop.os_uname().sysname == "Windows_NT" then
 		return true

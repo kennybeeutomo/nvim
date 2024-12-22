@@ -1,10 +1,8 @@
 local utils = require("utils")
-local luasnipBuild = function()
-	if utils.isWindows() then
-		return "make install_jsregexp CC=gcc.exe SHELL=C:/Program\\ Files/Git/bin/sh.exe .SHELLFLAGS=-c"
-	else
-		return "make install_jsregexp"
-	end
+
+local luasnipBuild = "make install_jsregexp"
+if utils.isWindows() then
+	luasnipBuild = luasnipBuild .. " CC=gcc.exe SHELL=C:/Program\\ Files/Git/bin/sh.exe .SHELLFLAGS=-c"
 end
 
 require("lazy").setup({
