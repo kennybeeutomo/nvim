@@ -3,6 +3,8 @@ local M = {}
 -- Custom Highlights
 function M.setup()
 	local colors = require("pywal16.core").get_colors()
+	local devicons = require("nvim-web-devicons")
+	local hl = vim.api.nvim_set_hl
 
 	-- Terminal colors
 	vim.g.terminal_color_0  = colors.color0  -- Black
@@ -23,6 +25,101 @@ function M.setup()
 	vim.g.terminal_color_13 = colors.color13 -- Bright Magenta
 	vim.g.terminal_color_14 = colors.color14 -- Bright Cyan
 	vim.g.terminal_color_15 = colors.color15 -- Bright White
+
+	local icons = vim.tbl_extend('keep', devicons.get_icons_by_filename(), devicons.get_icons_by_extension())
+
+	local highlightPresets = {
+		opaque = { bg = colors.background },
+		opaqueInvert = { bg = colors.color1, fg = colors.background }
+	}
+
+	local highlightChoice = vim.g.bufferLineInvert and highlightPresets.opaqueInvert or highlightPresets.opaque
+
+	local customHighlights = {
+		BufferLineBackground = highlightChoice,
+		BufferLinePick = highlightChoice,
+		BufferLineModified = highlightChoice,
+		BufferLineDevIconDefault = highlightChoice,
+		BufferLineCloseButton = highlightChoice,
+		BufferLineWarning = highlightChoice,
+		BufferLineWarningDiagnostic = highlightChoice,
+		BufferLineError = highlightChoice,
+		BufferLineErrorDiagnostic = highlightChoice,
+	}
+
+	local function hlDevIconFormat(iconName)
+		return "BufferLineDevIcon" .. iconName
+	end
+
+	for _, icon in pairs(icons) do
+		customHighlights[hlDevIconFormat(icon.name)] = highlightChoice
+	end
+
+	for group, value in pairs(customHighlights) do
+		hl(0, group, value)
+	end
 end
 
 return M
+
+-- BufferLineWarningDiagnosticSelected
+-- BufferLineWarningDiagnosticVisible
+-- BufferLineErrorDiagnosticSelected
+-- BufferLineInfoDiagnosticSelected
+-- BufferLineHintDiagnosticSelected
+-- BufferLineErrorDiagnosticVisible
+-- BufferLineInfoDiagnosticVisible
+-- BufferLineHintDiagnosticVisible
+-- BufferLineCloseButtonSelected
+-- BufferLineDiagnosticSelected
+-- BufferLineCloseButtonVisible
+-- BufferLineWarningDiagnostic
+-- BufferLineIndicatorSelected
+-- BufferLineDuplicateSelected
+-- BufferLineDiagnosticVisible
+-- BufferLineModifiedSelected
+-- BufferLineIndicatorVisible
+-- BufferLineDuplicateVisible
+-- BufferLineWarningSelected
+-- BufferLineNumbersSelected
+-- BufferLineModifiedVisible
+-- BufferLineErrorDiagnostic
+-- BufferLineWarningVisible
+-- BufferLineNumbersVisible
+-- BufferLineInfoDiagnostic
+-- BufferLineHintDiagnostic
+-- BufferLineErrorSelected
+-- BufferLinePickSelected
+-- BufferLineInfoSelected
+-- BufferLineHintSelected
+-- BufferLineErrorVisible
+-- BufferLineTruncMarker
+-- BufferLinePickVisible
+-- BufferLineInfoVisible
+-- BufferLineHintVisible
+-- BufferLineCloseButton
+-- BufferLineGroupLabel
+-- BufferLineDiagnostic
+-- BufferLineBackground
+-- BufferLineSeparatorVisible
+-- BufferLineOffsetSeparator
+-- BufferLineGroupSeparator
+-- BufferLineSeparatorSelected
+-- BufferLineSeparator
+-- BufferLineDuplicate
+-- BufferLineModified
+-- BufferLineWarning
+-- BufferLineNumbers
+-- BufferLineError
+-- BufferLinePick
+-- BufferLineInfo
+-- BufferLineHint
+-- BufferLineFill
+-- BufferLineBufferSelected
+-- BufferLineBufferVisible
+-- BufferLineBuffer
+-- BufferLineTabSeparatorSelected
+-- BufferLineTabSeparator
+-- BufferLineTabSelected
+-- BufferLineTabClose
+-- BufferLineTab

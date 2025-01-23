@@ -57,6 +57,10 @@ require("lazy").setup({
 			require("plugins.duckytype").setup()
 		end
 	},
+
+	{
+		"folke/zen-mode.nvim",
+	},
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

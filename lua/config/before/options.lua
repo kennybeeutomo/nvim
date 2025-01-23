@@ -36,6 +36,22 @@ vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.opt.termguicolors = true
 
+-- Filetype detection
+vim.filetype.add({
+	filename = {
+		["colors-hypr.conf"] = "hyprlang",
+		["aliases"] = "bash",
+		["functions"] = "bash",
+	},
+	pattern = {
+		[".*/hypr/.*%.conf"] = "hyprlang",
+		[".*/cava/config"] = "dosini",
+		[".*%.rasi"] = "rasi",
+		[".*%.h"] = "c",
+		[".*/uwsm/env.*"] = "sh",
+	},
+})
+
 -- GLOBAL VARIABLES
 vim.g.termcls = true
 vim.g.termfocus = true
@@ -45,6 +61,8 @@ vim.g.termtest = false
 vim.g.termfull = false
 
 vim.g.autosave = false
+
+vim.g.bufferLineInvert = true
 
 -- NEOVIDE ONLY
 vim.g.neovide_transparency = 0.8

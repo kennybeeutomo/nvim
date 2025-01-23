@@ -5,11 +5,9 @@ local function after(files)
 end
 
 after({
-	"autocommands"
+	"autocommands",
+	"usercommands"
 })
 
-vim.cmd.colorscheme("pywal16")
--- vim.cmd.colorscheme("night-owl")
--- for _,v in pairs(require("lazy").plugins()) do
--- 	print(v.name)
--- end
+require("utils").cleanColorscheme("pywal16")
+-- require("utils").cleanColorscheme("night-owl")

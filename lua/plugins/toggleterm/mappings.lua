@@ -36,17 +36,24 @@ local function runOrCompile(opts)
 	local afterCommands = ""
 
 	if vim.g.termquit then
-		if utils.isWindows() then
-			afterCommands = afterCommands .. "; cmd /c pause; exit"
-		else
-			local shell = utils.getShell()
-			afterCommands = afterCommands .. "; echo Press any key to continue..."
-			if shell == "/bin/zsh" then
-				afterCommands = afterCommands .. "; read -k 1 -sr; exit"
-			elseif shell == "/bin/bash" or shell == "/dev/sh" then
-				afterCommands = afterCommands .. "; read -n1 -sr; exit"
-			end
-		end
+		local shell = utils.getShell()
+
+		local shellCommands = {
+			-- Windows
+			["pwsh"] = "; cmd /c pause",
+			["powershell"] = "; cmd /c pause",
+			["cmd"] = "; pause",
+
+			-- Linux
+			["/bin/zsh"] = "; read -k 1 -sr",
+			["/usr/bin/zsh"] = "; read -k 1 -sr",
+			["/bin/bash"] = "; read -n1 -sr",
+			["/usr/bin/bash"] = "; read -n1 -sr",
+			["/bin/sh"] = "; read -n1 -sr",
+			["/usr/bin/sh"] = "; read -n1 -sr",
+		}
+
+		afterCommands = afterCommands .. shellCommands[shell] .. "; exit"
 	end
 
 	local function make()
@@ -68,6 +75,7 @@ local function runOrCompile(opts)
 		python = function() command = vim.api.nvim_buf_get_name(0) end,
 		c = function() command = make() end,
 		cpp = function() command = make() end,
+		make = function() command = make() end,
 	}
 
 	if commands[filetype] then

@@ -55,6 +55,7 @@ set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
 
 -- Terminal
 set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Go to normal mode in terminal" })
+set("n", "<leader><cr>", utils.spawnTerminal, { desc = "Spawn terminal in current directory" })
 
 -- pywal16
 set("n", "<leader>pw", utils.refreshpywal, { desc = "Reload pywal16" })

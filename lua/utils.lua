@@ -32,11 +32,26 @@ function M.loadcolorscheme(colorscheme, before)
 	return 0
 end
 
+function M.cleanColorscheme(colorscheme)
+	vim.cmd.highlight("clear")
+	if M.colorschemeExists(colorscheme) then
+		M.loadcolorscheme(colorscheme, true)
+		vim.cmd.colorscheme(colorscheme)
+		M.loadcolorscheme(colorscheme, false)
+	else
+		vim.cmd.colorscheme(colorscheme)
+	end
+	require("plugins.lualine").setup(colorscheme)
+	require("plugins.devicons-auto-colors").apply("default")
+	require("plugins.devicons-auto-colors").apply(colorscheme)
+	vim.g.colors_name = colorscheme
+end
+
 function M.refreshpywal()
 	if M.isWindows() then
 		vim.cmd("silent !wwal")
 	end
-	vim.cmd.colorscheme("pywal16")
+	M.cleanColorscheme("pywal16")
 end
 
 function M.isWindows()
@@ -48,6 +63,16 @@ end
 
 function M.getShell()
 	return vim.api.nvim_get_option("shell")
+end
+
+function M.spawnTerminal()
+	local cwd = vim.loop.cwd()
+	local terminal = os.getenv("TERM")
+	local commands = {
+		alacritty = ' --working-directory '
+	}
+	local command = "silent !" .. terminal .. commands[terminal] .. "\'" .. cwd .. "\' &"
+	vim.cmd(command)
 end
 
 return M

@@ -6,11 +6,13 @@ function M.setup()
 			diagnostics = "nvim_lsp",
 			themable = true,
 			indicator = {
-				style = "icon",
+				style = "none",
 			},
-
-		}
+			separator_style = { "", "" },
+		},
 	})
+
+	require("plugins.bufferline.mappings")
 end
 
 return M
