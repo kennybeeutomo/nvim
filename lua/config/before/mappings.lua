@@ -8,6 +8,9 @@ local set = vim.keymap.set
 set("n", "<leader>qq", "<cmd>qa!<cr>", { desc = "Quit All" })
 set("n", "<leader>qw", "<cmd>wqa!<cr>", { desc = "Save and quit All" })
 
+-- Editing
+set("i", "<C-BS>", "<Esc>vbc", { desc = "Delete word" })
+
 -- Navigation
 set({"n", "v"}, "j", "gj")
 set({"n", "v"}, "k", "gk")

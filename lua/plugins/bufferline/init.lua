@@ -9,10 +9,10 @@ function M.setup()
 				style = "none",
 			},
 			separator_style = { "", "" },
+			show_close_icon = false,
+			show_buffer_close_icons = false,
 		},
 	})
-
-	require("plugins.bufferline.mappings")
 end
 
 return M

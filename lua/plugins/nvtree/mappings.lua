@@ -8,5 +8,5 @@ end
 
 set("n", "<leader>e", "<cmd>NvimTreeFocus<cr>", { desc = "Focus NvimTree" })
 set("n", "<leader>n", "<cmd>NvimTreeClose<cr>", { desc = "Close NvimTree" })
-set("n", "<leader>cd", nvcd, { desc = "cd to directory of current file" })
+set("n", "<C-c>", nvcd, { desc = "cd to directory of current file" })
 set("n", "<leader>qb", "<cmd>bd<cr><cmd>NvimTreeClose<cr>", { desc = "Delete buffer" })

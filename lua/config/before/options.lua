@@ -28,7 +28,7 @@ vim.opt.fillchars = { eob = ' ' }
 vim.opt.showmode = false
 
 -- Set oldfiles limit to 1000
-vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'1000", 1)
+vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'10000", 1)
 
 vim.wo.foldlevel = 20
 vim.wo.foldmethod = 'expr'
@@ -61,8 +61,6 @@ vim.g.termtest = false
 vim.g.termfull = false
 
 vim.g.autosave = false
-
-vim.g.bufferLineInvert = true
 
 -- NEOVIDE ONLY
 vim.g.neovide_transparency = 0.8

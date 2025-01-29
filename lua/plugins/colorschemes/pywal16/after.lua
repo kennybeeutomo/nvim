@@ -26,37 +26,43 @@ function M.setup()
 	vim.g.terminal_color_14 = colors.color14 -- Bright Cyan
 	vim.g.terminal_color_15 = colors.color15 -- Bright White
 
-	local icons = vim.tbl_extend('keep', devicons.get_icons_by_filename(), devicons.get_icons_by_extension())
+	-- BufferLine
+	local blColors = { bg = colors.color12, fg = colors.background }
 
-	local highlightPresets = {
-		opaque = { bg = colors.background },
-		opaqueInvert = { bg = colors.color1, fg = colors.background }
+	local blIcons = vim.tbl_extend('keep', devicons.get_icons_by_filename(), devicons.get_icons_by_extension())
+	table.insert(blIcons, { name = "Default" })
+
+	local blCustomGroups = {
+		"BufferLineBackground",
+		"BufferLinePick",
+		"BufferLineModified",
+		"BufferLineCloseButton",
+		"BufferLineWarning",
+		"BufferLineWarningDiagnostic",
+		"BufferLineError",
+		"BufferLineErrorDiagnostic",
+		"BufferLineHint",
+		"BufferLineHintDiagnostic",
+		"BufferLineInfo",
+		"BufferLineInfoDiagnostic",
+		"BufferLineDuplicate",
+		"BufferLineBuffer",
 	}
 
-	local highlightChoice = vim.g.bufferLineInvert and highlightPresets.opaqueInvert or highlightPresets.opaque
+	local blGroups = { }
 
-	local customHighlights = {
-		BufferLineBackground = highlightChoice,
-		BufferLinePick = highlightChoice,
-		BufferLineModified = highlightChoice,
-		BufferLineDevIconDefault = highlightChoice,
-		BufferLineCloseButton = highlightChoice,
-		BufferLineWarning = highlightChoice,
-		BufferLineWarningDiagnostic = highlightChoice,
-		BufferLineError = highlightChoice,
-		BufferLineErrorDiagnostic = highlightChoice,
-	}
-
-	local function hlDevIconFormat(iconName)
-		return "BufferLineDevIcon" .. iconName
+	for _, group in pairs(blCustomGroups) do
+		table.insert(blGroups, group .. "Selected")
+		table.insert(blGroups, group .. "Visible")
 	end
 
-	for _, icon in pairs(icons) do
-		customHighlights[hlDevIconFormat(icon.name)] = highlightChoice
+	for _, icon in pairs(blIcons) do
+		table.insert(blGroups, "BufferLineDevIcon" .. icon.name .. "Selected")
+		table.insert(blGroups, "BufferLineDevIcon" .. icon.name .. "Inactive")
 	end
 
-	for group, value in pairs(customHighlights) do
-		hl(0, group, value)
+	for _, group in pairs(blGroups) do
+		hl(0, group, blColors)
 	end
 end
 
