@@ -24,4 +24,5 @@ load({
 	"zenmode",
 
 	"nvim-cmp",
+	"dap",
 })

@@ -127,6 +127,9 @@ require("lazy").setup({
 	},
 	{ "saadparwaiz1/cmp_luasnip" },
 
+	{ "mfussenegger/nvim-dap" },
+	{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
+
 	{
 		"barrett-ruth/live-server.nvim",
 		build = "npm add -g live-server",
