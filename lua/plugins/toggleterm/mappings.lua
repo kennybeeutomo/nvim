@@ -9,6 +9,16 @@ set("t", "<M-v>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 
+-- Send command to terminal
+local function sendCommand(direction)
+	local command = vim.fn.input("")
+	if command ~= "" then
+		vim.cmd("TermExec direction=" .. direction .. " cmd=\"" .. command .. "\"")
+	end
+end
+
+set("n", "<leader>h", function() sendCommand("horizontal") end, { desc = "Send command to terminal (horizontal)" })
+
 -- Run / Compile
 local function exec(command)
 	local after = ""

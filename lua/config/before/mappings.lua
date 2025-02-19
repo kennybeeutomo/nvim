@@ -7,6 +7,9 @@ local set = vim.keymap.set
 -- General
 set("n", "<leader>qq", "<cmd>qa!<cr>", { desc = "Quit All" })
 set("n", "<leader>qw", "<cmd>wqa!<cr>", { desc = "Save and quit All" })
+set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
+set("n", "<C-p>", "<cmd>q<cr>", { desc = "Quit" })
+set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 
 -- Editing
 set("i", "<C-BS>", "<Esc>vbc", { desc = "Delete word" })
@@ -58,7 +61,11 @@ set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
 
 -- Terminal
 set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Go to normal mode in terminal" })
+set({"n", "t"}, "<M-m>", "<C-\\><C-n><C-w>p", { desc = "Go to normal mode in terminal" })
 set("n", "<leader><cr>", utils.spawnTerminal, { desc = "Spawn terminal in current directory" })
 
 -- pywal16
 set("n", "<leader>pw", utils.refreshpywal, { desc = "Reload pywal16" })
+
+-- Hex Dump
+set("n", "<leader>x", "<cmd>%!xxd<cr>", { desc = "Hex Dump" })
