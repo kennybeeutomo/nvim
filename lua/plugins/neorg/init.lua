@@ -15,6 +15,7 @@ function M.setup()
 						life = "~/neorg/life",
 						todo = "~/neorg/todo",
 						temp = "~/neorg/temp",
+						notes = "~/neorg/notes",
 					},
 				},
 			},
