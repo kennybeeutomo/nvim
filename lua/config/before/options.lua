@@ -53,10 +53,8 @@ vim.filetype.add({
 })
 
 -- GLOBAL VARIABLES
-vim.g.termcls = true
 vim.g.termfocus = true
 vim.g.termsize = 15
-vim.g.termquit = true
 vim.g.termtest = false
 vim.g.termfull = false
 
