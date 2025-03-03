@@ -27,6 +27,8 @@ vim.opt.fillchars = { eob = ' ' }
 
 vim.opt.showmode = false
 
+vim.o.shortmess = vim.o.shortmess .. "I"
+
 -- Set oldfiles limit to 1000
 vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'10000", 1)
 
