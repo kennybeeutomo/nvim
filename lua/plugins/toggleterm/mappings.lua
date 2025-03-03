@@ -84,11 +84,20 @@ local function runOrCompile(opts)
 		return makeCommand
 	end
 
+	local function go()
+		local cmd = "go run ."
+		if opts.compile then
+			cmd = "go build && " .. cmd
+		end
+		return cmd
+	end
+
 	local commands = {
 		python = function() command = "python " .. file end,
 		c = function() command = make() end,
 		cpp = function() command = make() end,
 		make = function() command = make() end,
+		go = function() command = go() end,
 	}
 
 	if commands[filetype] then

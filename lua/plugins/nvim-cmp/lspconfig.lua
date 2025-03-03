@@ -37,9 +37,9 @@ lspconfig.html.setup {
 	capabilities = capabilities
 }
 
--- lspconfig.cssls.setup {
--- 	capabilities = capabilities
--- }
+lspconfig.cssls.setup {
+	capabilities = capabilities
+}
 
 lspconfig.pylsp.setup {
 	capabilities = capabilities
@@ -50,5 +50,17 @@ lspconfig.bashls.setup {
 }
 
 lspconfig.hyprls.setup {
+	capabilities = capabilities
+}
+
+lspconfig.tinymist.setup {
+	capabilities = capabilities
+}
+
+lspconfig.jsonls.setup {
+	capabilities = capabilities
+}
+
+lspconfig.gopls.setup {
 	capabilities = capabilities
 }
