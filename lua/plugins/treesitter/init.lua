@@ -17,10 +17,11 @@ function M.setup()
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "gnn", -- set to `false` to disable one of the mappings
-				node_incremental = "grn",
-				scope_incremental = "grc",
-				node_decremental = "grm",
+				-- set to `false` to disable one of the mappings
+				init_selection = false,
+				node_incremental = false,
+				scope_incremental = false,
+				node_decremental = false,
 			},
 		},
 		indent = {
@@ -29,6 +30,7 @@ function M.setup()
 	}
 
 	require("nvim-treesitter.install").prefer_git = true
+	require("plugins.treesitter.mappings")
 end
 
 return M
