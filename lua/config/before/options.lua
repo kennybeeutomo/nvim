@@ -62,6 +62,8 @@ vim.g.termfull = false
 
 vim.g.autosave = false
 
+vim.g.relativenumber = vim.o.relativenumber
+
 -- NEOVIDE ONLY
 vim.g.neovide_transparency = 0.8
 vim.g.neovide_remember_window_size = true
