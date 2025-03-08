@@ -1,5 +1,9 @@
 local utils = require("utils")
+local toggleterm = require("toggleterm")
 local set = vim.keymap.set
+
+local toggletermConfig = require("toggleterm.config")
+local size = toggletermConfig.get("size")
 
 -- General
 set("n", "<M-v>", "<cmd>ToggleTerm direction=vertical size=60<cr>", { desc = "Show terminal vertically" })
@@ -13,40 +17,28 @@ set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
 local function sendCommand(direction)
 	local command = vim.fn.input("")
 	if command ~= "" then
-		vim.cmd("TermExec direction=" .. direction .. " cmd=\"" .. command .. "\"")
+		toggleterm.exec(command, 1, size, "", direction)
 	end
 end
 
 set("n", "<leader>h", function() sendCommand("horizontal") end, { desc = "Send command to terminal (horizontal)" })
+set("n", "<leader>v", function() sendCommand("vertical") end, { desc = "Send command to terminal (vertical)" })
 
 -- Run / Compile
 local function exec(command)
-	local after = ""
-
-	if vim.g.termfocus then
-		after = after .. " go_back=0"
-	end
-
-	if vim.g.termfull then
-		after = after .. " direction=tab"
-	end
-
-	vim.cmd("TermExec cmd=\"" .. command .. "\"" .. after)
+	local direction = vim.g.termfull and "tab" or toggletermConfig.get("direction")
+	toggleterm.exec(command, 1, size, "", direction, "Compile and Run", not vim.g.termfocus)
 end
 
-local function runOrCompile(opts)
-	setmetatable(opts, {__index={
-		compile = true,
-	}})
-
+local function runOrCompile(type)
 	local filetype = vim.bo.filetype
 	local file = vim.api.nvim_buf_get_name(0)
 
 	local command = ""
-	local beforeCommands = ""
-	local afterCommands = ""
+	local before = ""
+	local after = ""
 
-	beforeCommands = beforeCommands .. "cls; "
+	before = before .. "echo -ne \'\\033c\'; "
 
 	if vim.g.termfocus then
 		local shell = utils.getShell()
@@ -66,54 +58,57 @@ local function runOrCompile(opts)
 			["/usr/bin/sh"] = "; read -n1 -sr",
 		}
 
-		afterCommands = afterCommands .. shellCommands[shell] .. "; exit"
-	end
-
-	local function make()
-		local makeCommand = ""
-		if opts.compile then
-			makeCommand = makeCommand .. "make && "
-		end
-
-		if vim.g.termtest then
-			makeCommand = makeCommand .. "make test"
-		else
-			makeCommand = makeCommand .. "make run"
-		end
-
-		return makeCommand
-	end
-
-	local function go()
-		local cmd = "go run ."
-		if opts.compile then
-			cmd = "go build && " .. cmd
-		end
-		return cmd
+		after = after .. shellCommands[shell] .. "; exit"
 	end
 
 	local commands = {
-		python = function() command = "python " .. file end,
-		c = function() command = make() end,
-		cpp = function() command = make() end,
-		make = function() command = make() end,
-		go = function() command = go() end,
+		python = {
+			run = "python " .. file
+		},
+		make = {
+			run = "make && make run",
+			compile = "make",
+			test = "make test",
+			clean = "make clean",
+		},
+		go = {
+			run = "go run .",
+			compile = "go build",
+			test = "go test",
+			clean = "go clean",
+		},
+		rust = {
+			run = "cargo run",
+			compile = "cargo build",
+			test = "cargo test",
+			clean = "cargo clean",
+		},
 	}
 
-	if commands[filetype] then
-		commands[filetype]()
-		exec(beforeCommands .. command .. afterCommands)
-	else
-		print("No run command for " .. filetype .. " yet")
+	commands["c"] = commands.make
+	commands["cpp"] = commands.make
+
+	if commands[filetype] == nil then
+		print("No command for " .. filetype .. " yet")
+		return
 	end
+
+	if commands[filetype][type] == nil then
+		print("No " .. type .. " command for " .. filetype .. " yet")
+		return
+	end
+
+	command = commands[filetype][type]
+	exec(before .. command .. after)
 end
 
-set("n", "<leader>rr", function() runOrCompile{} end, { desc = "Run / Compile" })
-set("n", "<leader>rn", function() runOrCompile{compile = false} end, { desc = "Just Run" })
+set("n", "<leader>rr", function() runOrCompile("run") end, { desc = "Compile and Run" })
+set("n", "<leader>rb", function() runOrCompile("compile") end, { desc = "Just Compile" })
+set("n", "<leader>rt", function() runOrCompile("test") end, { desc = "Test" })
+set("n", "<leader>rc", function() runOrCompile("clean") end, { desc = "Clean" })
 set("n", "<leader>rf", function() vim.g.termfocus = not vim.g.termfocus end, { desc = "Toggle focus" })
-set("n", "<leader>rt", function() vim.g.termtest = not vim.g.termtest end, { desc = "Toggle test" })
-set("n", "<leader>rF", function() vim.g.termfull = not vim.g.termtest end, { desc = "Toggle fullscreen" })
-set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. vim.g.termsize .. "<cr><cmd>wincmd p<cr>",
+set("n", "<leader>rF", function() vim.g.termfull = not vim.g.termfull end, { desc = "Toggle fullscreen" })
+set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. size .. "<cr><cmd>wincmd p<cr>",
 	{ desc = "Reset terminal window size" })
 set({"n", "t"}, "<M-q>", [[<cmd>TermExec cmd="exit"<cr>]], { desc = "Exit terminal" })
 
