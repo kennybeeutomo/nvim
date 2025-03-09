@@ -64,68 +64,11 @@ function M.setup()
 	for _, group in pairs(blGroups) do
 		hl(0, group, blColors)
 	end
+
+	-- Indent Blankline
+	-- hl(0, "IblWhitespace", { bg = "NONE" })
+	hl(0, "@ibl.whitespace.char.1", { bg = "NONE" })
+	hl(0, "@ibl.scope.underline.1", { bg = "NONE", bold = true, italic = true })
 end
 
 return M
-
--- BufferLineWarningDiagnosticSelected
--- BufferLineWarningDiagnosticVisible
--- BufferLineErrorDiagnosticSelected
--- BufferLineInfoDiagnosticSelected
--- BufferLineHintDiagnosticSelected
--- BufferLineErrorDiagnosticVisible
--- BufferLineInfoDiagnosticVisible
--- BufferLineHintDiagnosticVisible
--- BufferLineCloseButtonSelected
--- BufferLineDiagnosticSelected
--- BufferLineCloseButtonVisible
--- BufferLineWarningDiagnostic
--- BufferLineIndicatorSelected
--- BufferLineDuplicateSelected
--- BufferLineDiagnosticVisible
--- BufferLineModifiedSelected
--- BufferLineIndicatorVisible
--- BufferLineDuplicateVisible
--- BufferLineWarningSelected
--- BufferLineNumbersSelected
--- BufferLineModifiedVisible
--- BufferLineErrorDiagnostic
--- BufferLineWarningVisible
--- BufferLineNumbersVisible
--- BufferLineInfoDiagnostic
--- BufferLineHintDiagnostic
--- BufferLineErrorSelected
--- BufferLinePickSelected
--- BufferLineInfoSelected
--- BufferLineHintSelected
--- BufferLineErrorVisible
--- BufferLineTruncMarker
--- BufferLinePickVisible
--- BufferLineInfoVisible
--- BufferLineHintVisible
--- BufferLineCloseButton
--- BufferLineGroupLabel
--- BufferLineDiagnostic
--- BufferLineBackground
--- BufferLineSeparatorVisible
--- BufferLineOffsetSeparator
--- BufferLineGroupSeparator
--- BufferLineSeparatorSelected
--- BufferLineSeparator
--- BufferLineDuplicate
--- BufferLineModified
--- BufferLineWarning
--- BufferLineNumbers
--- BufferLineError
--- BufferLinePick
--- BufferLineInfo
--- BufferLineHint
--- BufferLineFill
--- BufferLineBufferSelected
--- BufferLineBufferVisible
--- BufferLineBuffer
--- BufferLineTabSeparatorSelected
--- BufferLineTabSeparator
--- BufferLineTabSelected
--- BufferLineTabClose
--- BufferLineTab

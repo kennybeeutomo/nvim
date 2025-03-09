@@ -131,6 +131,10 @@ require("lazy").setup({
 	{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
 
 	{
+		"lukas-reineke/indent-blankline.nvim",
+	},
+
+	{
 		"barrett-ruth/live-server.nvim",
 		build = "npm add -g live-server",
 		cmd = { "LiveServerStart", "LiveServerStop" },

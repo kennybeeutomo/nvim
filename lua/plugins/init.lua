@@ -25,4 +25,5 @@ load({
 
 	"nvim-cmp",
 	"dap",
+	"indent-blankline",
 })
