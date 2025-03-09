@@ -1,25 +1,25 @@
 # ------------ [ C ] ------------
 ---
 If:
-  PathMatch: .*\.c
+  PathMatch: [.*\.c, .*\.h]
 CompileFlags:
-  Compiler: C:/msys64/ucrt64/bin/gcc
-  Add: [-xc, -Wall, --target=x86_64-w64-windows-gnu]
+  Compiler: gcc
+  Add: [-xc, -std=c11, -Wall, -Wextra, --target=x86_64-w64-windows-gnu]
 
-Diagnostics:
-  UnusedIncludes: None
-  #Suppress: -Wunused
-...
+# Diagnostics:
+  # UnusedIncludes: None
+  # Suppress: -Wunused
+  ...
 
-# ------------ [ C++ ] ------------
----
+  # ------------ [ C++ ] ------------
+  ---
 If:
-  PathMatch: .*\.cpp
+  PathMatch: [.*\.cpp, .*\.hpp]
 CompileFlags:
-  Compiler: C:/msys64/ucrt64/bin/g++
-  Add: [-xc++, -std=c++17, -Wall, --target=x86_64-w64-windows-gnu]
+  Compiler: g++
+  Add: [-xc++, -std=c++17, -Wall, -Wextra, --target=x86_64-w64-windows-gnu]
 
-Diagnostics:
-  UnusedIncludes: None
-  #Suppress: -Wunused
-...
+# Diagnostics:
+  # UnusedIncludes: None
+  # Suppress: -Wunused
+  ...
