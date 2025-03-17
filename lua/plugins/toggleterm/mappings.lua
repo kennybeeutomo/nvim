@@ -25,9 +25,9 @@ set("n", "<leader>h", function() sendCommand("horizontal") end, { desc = "Send c
 set("n", "<leader>v", function() sendCommand("vertical") end, { desc = "Send command to terminal (vertical)" })
 
 -- Run / Compile
-local function exec(command)
+local function exec(command, focus)
 	local direction = vim.g.termfull and "tab" or toggletermConfig.get("direction")
-	toggleterm.exec(command, 1, size, "", direction, "Compile and Run", not vim.g.termfocus)
+	toggleterm.exec(command, 1, size, "", direction, "Compile and Run", not focus)
 end
 
 local function runOrCompile(type)
@@ -40,7 +40,50 @@ local function runOrCompile(type)
 
 	before = before .. "echo -ne \'\\033c\'; "
 
-	if vim.g.termfocus then
+	local commands = {
+		python = {
+			focus = true,
+			run = "python " .. file,
+		},
+		make = {
+			focus = true,
+			run = "make && make run",
+			compile = "make",
+			test = "make test",
+			clean = "make clean",
+			watch = "make watch",
+		},
+		go = {
+			focus = true,
+			run = "go run .",
+			compile = "go build",
+			test = "go test",
+			clean = "go clean",
+			watch = "find *.go | entr -cs 'go run .'"
+		},
+		rust = {
+			focus = true,
+			run = "cargo run",
+			compile = "cargo build",
+			test = "cargo test",
+			clean = "cargo clean",
+			watch = "find *.rs | entr -cs 'cargo run'"
+		},
+		typst = {
+			focus = false,
+			run = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit",
+			compile = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit",
+			watch = "typst watch " .. file .. " &> /dev/null &",
+			extra = function() toggleterm.toggle(1) end
+		}
+	}
+
+	commands["c"] = commands.make
+	commands["cpp"] = commands.make
+
+	local focus = vim.g.termfocus and commands[filetype].focus
+
+	if focus then
 		local shell = utils.getShell()
 
 		local shellCommands = {
@@ -61,33 +104,6 @@ local function runOrCompile(type)
 		after = after .. shellCommands[shell] .. "; exit"
 	end
 
-	local commands = {
-		python = {
-			run = "python " .. file
-		},
-		make = {
-			run = "make && make run",
-			compile = "make",
-			test = "make test",
-			clean = "make clean",
-		},
-		go = {
-			run = "go run .",
-			compile = "go build",
-			test = "go test",
-			clean = "go clean",
-		},
-		rust = {
-			run = "cargo run",
-			compile = "cargo build",
-			test = "cargo test",
-			clean = "cargo clean",
-		},
-	}
-
-	commands["c"] = commands.make
-	commands["cpp"] = commands.make
-
 	if commands[filetype] == nil then
 		print("No command for " .. filetype .. " yet")
 		return
@@ -99,13 +115,18 @@ local function runOrCompile(type)
 	end
 
 	command = commands[filetype][type]
-	exec(before .. command .. after)
+	exec(before .. command .. after, focus)
+
+	if commands[filetype].extra ~= nil then
+		commands[filetype].extra()
+	end
 end
 
 set("n", "<leader>rr", function() runOrCompile("run") end, { desc = "Compile and Run" })
 set("n", "<leader>rb", function() runOrCompile("compile") end, { desc = "Just Compile" })
 set("n", "<leader>rt", function() runOrCompile("test") end, { desc = "Test" })
 set("n", "<leader>rc", function() runOrCompile("clean") end, { desc = "Clean" })
+set("n", "<leader>rw", function() runOrCompile("watch") end, { desc = "Watch" })
 set("n", "<leader>rf", function() vim.g.termfocus = not vim.g.termfocus end, { desc = "Toggle focus" })
 set("n", "<leader>rF", function() vim.g.termfull = not vim.g.termfull end, { desc = "Toggle fullscreen" })
 set("n", "<leader>rs", "<cmd>wincmd b<cr><cmd>res " .. size .. "<cr><cmd>wincmd p<cr>",
