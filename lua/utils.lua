@@ -17,6 +17,15 @@ function M.colorschemeExists(colorscheme)
 	return false
 end
 
+function M.customHighlight(highlight)
+	if M.colorschemeExists(vim.g.colors_name) then
+		local hl = require("plugins.colorschemes." .. vim.g.colors_name .. ".custom").highlights[highlight]
+		if hl ~= nil then
+			hl()
+		end
+	end
+end
+
 function M.loadcolorscheme(colorscheme, before)
 	if colorscheme == "pywal16" and vim.fn.executable("wal") ~= 1 then
 		vim.print("pywal16 not installed!")
@@ -26,7 +35,7 @@ function M.loadcolorscheme(colorscheme, before)
 	if before then
 		require("plugins.colorschemes." .. colorscheme .. ".before").setup()
 	else
-		require("plugins.colorschemes." .. colorscheme .. ".after").setup()
+		require("plugins.colorschemes." .. colorscheme .. ".custom").setup()
 	end
 
 	return 0
@@ -73,6 +82,18 @@ function M.spawnTerminal()
 	}
 	local command = "silent !" .. terminal .. commands[terminal] .. "\'" .. cwd .. "\' &"
 	vim.cmd(command)
+end
+
+-- sequence = {index, table}
+function M.getSequence(sequence)
+	return sequence[2][sequence[1]]
+end
+
+function M.cycle(sequence, n)
+	sequence[1] = sequence[1] - 1
+	sequence[1] = (sequence[1] + n) % #sequence[2]
+	sequence[1] = sequence[1] + 1
+	return sequence
 end
 
 return M
