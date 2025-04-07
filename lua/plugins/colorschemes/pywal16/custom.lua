@@ -5,6 +5,11 @@ local devicons = require("nvim-web-devicons")
 local hl = vim.api.nvim_set_hl
 
 M.highlights = {
+	vim = function()
+		hl(0, "Visual", { fg = colors.color0, bg = colors.color12 })
+		-- hl(0, "Visual", { reverse = true })
+	end,
+
 	terminal = function()
 		-- Base colors
 		vim.g.terminal_color_0  = colors.color0  -- Black
