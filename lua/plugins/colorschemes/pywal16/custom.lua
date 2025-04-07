@@ -75,6 +75,7 @@ M.highlights = {
 }
 
 function M.setup()
+	colors = require("pywal16.core").get_colors()
 	for _, highlight in pairs(M.highlights) do
 		highlight()
 	end
