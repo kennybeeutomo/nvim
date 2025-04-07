@@ -1,6 +1,8 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+
 local utils = require("utils")
+local utilsIbl = require("plugins.indent-blankline.utils")
 
 local pywal = augroup("pywal", { clear = true })
 autocmd({"Signal"}, {
@@ -25,6 +27,16 @@ autocmd({"Filetype"}, {
 		vim.opt.commentstring = "# %s"
 	end,
 	desc = "Set commentstring for hyprland conf files"
+})
+
+local disableIbl = augroup("disableIbl", { clear = true })
+autocmd({"Filetype"}, {
+	pattern = "norg",
+	group = disableIbl,
+	callback = function()
+		utilsIbl.setcharBuffer(" ")
+	end,
+	desc = "Disable ibl for norg"
 })
 
 -- The events on which lualine redraws itself
