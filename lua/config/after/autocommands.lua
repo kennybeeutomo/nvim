@@ -2,6 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 local utils = require("utils")
+local set = vim.keymap.set
 local utilsIbl = require("plugins.indent-blankline.utils")
 
 local pywal = augroup("pywal", { clear = true })
@@ -37,6 +38,16 @@ autocmd({"Filetype"}, {
 		utilsIbl.setcharBuffer(" ")
 	end,
 	desc = "Disable ibl for norg"
+})
+
+local localMappings = augroup("localMappings", { clear = true })
+autocmd({"BufRead"}, {
+	pattern = "colors-readable.txt",
+	group = localMappings,
+	callback = function()
+		set("n", "y", "f#ye0", { buffer = true, desc = "Copy color" })
+	end,
+	desc = "Pywal Colors"
 })
 
 -- The events on which lualine redraws itself
