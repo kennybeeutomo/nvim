@@ -62,7 +62,7 @@ vim.g.autosave = false
 
 vim.g.relativenumber = vim.o.relativenumber
 
-vim.g.iblchar = { 1, { "┃", " " } }
+vim.g.iblchar = { 1, { "│", " " } }
 
 -- NEOVIDE ONLY
 vim.g.neovide_transparency = 0.8
