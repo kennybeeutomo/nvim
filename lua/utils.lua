@@ -50,7 +50,11 @@ function M.cleanColorscheme(colorscheme)
 	else
 		vim.cmd.colorscheme(colorscheme)
 	end
-	require("plugins.lualine").setup(colorscheme)
+
+	if not vim.g.nvimpager then
+		require("plugins.lualine").setup(colorscheme)
+	end
+
 	require("plugins.devicons-auto-colors").apply("default")
 	require("plugins.devicons-auto-colors").apply(colorscheme)
 	vim.g.colors_name = colorscheme
