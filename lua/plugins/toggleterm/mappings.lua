@@ -45,6 +45,14 @@ local function runOrCompile(type)
 			focus = true,
 			run = "python " .. file,
 		},
+		lua = {
+			focus = true,
+			run = "lua " .. file,
+		},
+		sh = {
+			focus = true,
+			run = file,
+		},
 		make = {
 			focus = true,
 			run = "make && make run",
@@ -80,6 +88,18 @@ local function runOrCompile(type)
 
 	commands["c"] = commands.make
 	commands["cpp"] = commands.make
+	commands["bash"] = commands.sh
+	commands["zsh"] = commands.sh
+
+	if commands[filetype] == nil then
+		print("No command for " .. filetype .. " yet")
+		return
+	end
+
+	if commands[filetype][type] == nil then
+		print("No " .. type .. " command for " .. filetype .. " yet")
+		return
+	end
 
 	local focus = vim.g.termfocus and commands[filetype].focus
 
@@ -102,16 +122,6 @@ local function runOrCompile(type)
 		}
 
 		after = after .. shellCommands[shell] .. "; exit"
-	end
-
-	if commands[filetype] == nil then
-		print("No command for " .. filetype .. " yet")
-		return
-	end
-
-	if commands[filetype][type] == nil then
-		print("No " .. type .. " command for " .. filetype .. " yet")
-		return
 	end
 
 	command = commands[filetype][type]
