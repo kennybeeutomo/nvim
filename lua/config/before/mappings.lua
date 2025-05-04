@@ -50,7 +50,7 @@ set("n", "<leader>s", "T{i<cr><esc>t}a<cr><esc>", { desc = "Expand curly braces"
 set("n", "<leader>a", "ggVG", { desc = "Select all" })
 
 -- Fold
-set("n", "<C-o>", "za", { desc = "Toggle fold" })
+set("n", "<C-o>", "za")
 
 -- Format
 set("n", "<leader>\\f", function()

@@ -51,6 +51,7 @@ vim.filetype.add({
 		[".*%.rasi"] = "rasi",
 		[".*%.h"] = "c",
 		[".*/uwsm/env.*"] = "sh",
+		[".*/.scripts/utils"] = "sh",
 	},
 })
 

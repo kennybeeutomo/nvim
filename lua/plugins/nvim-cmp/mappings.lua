@@ -9,12 +9,17 @@ local cmp = require("cmp")
 
 cmp.setup({
 	mapping = {
+		["<C-y>"] = cmp.mapping.scroll_docs(-4),
+		["<C-e>"] = cmp.mapping.scroll_docs(4),
+		["<C-h>"] = cmp.mapping.abort(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+
 		["<C-j>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 				-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
 				-- that way you will only jump inside the snippet region
-			elseif luasnip.expand_or_jumpable() then
+			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			elseif has_words_before() then
 				cmp.complete()
@@ -35,11 +40,3 @@ cmp.setup({
 	},
 })
 
-local set = vim.keymap.set
-
-set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Go to definition" })
-set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: Go to declaration" })
-set("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover" })
-set("n", "gr", vim.lsp.buf.rename, { desc = "LSP: Refactor" })
-set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "LSP: Signature help" })
-set("n", "<C-j>", vim.diagnostic.open_float, { desc = "LSP: Open Diagnostics" })
