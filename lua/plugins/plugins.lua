@@ -13,6 +13,7 @@ require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 
 	{ "nvim-treesitter/nvim-treesitter", },
+	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 
 	{ "nvim-tree/nvim-web-devicons" },
 	{
