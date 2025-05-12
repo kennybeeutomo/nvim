@@ -26,17 +26,13 @@ function M.customHighlight(highlight)
 	end
 end
 
-function M.loadcolorscheme(colorscheme, before)
+function M.loadcolorscheme(colorscheme, file)
 	if colorscheme == "pywal16" and vim.fn.executable("wal") ~= 1 then
 		vim.print("pywal16 not installed!")
 		return 1
 	end
 
-	if before then
-		require("plugins.colorschemes." .. colorscheme .. ".before").setup()
-	else
-		require("plugins.colorschemes." .. colorscheme .. ".custom").setup()
-	end
+	require("plugins.colorschemes." .. colorscheme .. "." .. file).setup()
 
 	return 0
 end
@@ -44,9 +40,9 @@ end
 function M.cleanColorscheme(colorscheme)
 	vim.cmd.highlight("clear")
 	if M.colorschemeExists(colorscheme) then
-		M.loadcolorscheme(colorscheme, true)
+		M.loadcolorscheme(colorscheme, "before")
 		vim.cmd.colorscheme(colorscheme)
-		M.loadcolorscheme(colorscheme, false)
+		M.loadcolorscheme(colorscheme, "custom")
 	else
 		vim.cmd.colorscheme(colorscheme)
 	end
@@ -68,18 +64,18 @@ function M.refreshpywal()
 end
 
 function M.isWindows()
-	if vim.loop.os_uname().sysname == "Windows_NT" then
+	if vim.uv.os_uname().sysname == "Windows_NT" then
 		return true
 	end
 	return false
 end
 
 function M.getShell()
-	return vim.api.nvim_get_option("shell")
+	return vim.api.nvim_get_option_value("shell", {})
 end
 
 function M.spawnTerminal()
-	local cwd = vim.loop.cwd()
+	local cwd = vim.uv.cwd()
 	local terminal = os.getenv("TERM")
 	local commands = {
 		alacritty = ' --working-directory '
@@ -98,6 +94,15 @@ function M.cycle(sequence, n)
 	sequence[1] = (sequence[1] + n) % #sequence[2]
 	sequence[1] = sequence[1] + 1
 	return sequence
+end
+
+function M.toggleNumbers(opt)
+	if opt == "r" then
+		vim.g.relativenumber = not vim.g.relativenumber
+	elseif opt == "n" then
+		vim.o.number = not vim.o.number
+	end
+	vim.o.relativenumber = vim.o.number and vim.g.relativenumber
 end
 
 return M

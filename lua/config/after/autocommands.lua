@@ -50,6 +50,17 @@ autocmd({"BufRead"}, {
 	desc = "Pywal Colors"
 })
 
+local localOptions = augroup("localOptions", { clear = true })
+autocmd({"Filetype"}, {
+	pattern = "norg",
+	group = localOptions,
+	callback = function()
+		vim.o.number = false
+		vim.o.relativenumber = false
+	end,
+	desc = "Norg Options"
+})
+
 -- The events on which lualine redraws itself
 -- from https://github.com/nvim-lualine/lualine.nvim/issues/1293#issuecomment-2280456044
 local default_refresh_events = {"WinEnter","BufEnter","BufWritePost","SessionLoadPost","FileChangedShellPost","VimResized","Filetype","CursorMoved","CursorMovedI","ModeChanged"}

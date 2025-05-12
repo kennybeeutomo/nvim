@@ -19,17 +19,10 @@ set({"n", "v"}, "j", "gj")
 set({"n", "v"}, "k", "gk")
 
 -- Options
-local function toggleNumbers(opt)
-	if opt == "r" then
-		vim.g.relativenumber = not vim.g.relativenumber
-	elseif opt == "n" then
-		vim.o.number = not vim.o.number
-	end
-	vim.o.relativenumber = vim.o.number and vim.g.relativenumber
-end
-
-set("n", "<leader>trn", function() toggleNumbers("r") end, { desc = "Toggle Relative Number" })
-set("n", "<leader>tln", function() toggleNumbers("n") end, { desc = "Toggle Line Numbers" })
+set("n", "<leader>trn", function() utils.toggleNumbers("r") end, { desc = "Toggle Relative Number" })
+set("n", "<leader>tln", function() utils.toggleNumbers("n") end, { desc = "Toggle Line Numbers" })
+set("n", "<leader>tw", function() vim.o.wrap = not vim.o.wrap end, { desc = "Toggle Wrapping" })
+set("n", "<leader>tic", function() vim.o.ignorecase = not vim.o.ignorecase end, { desc = "Toggle Ignore Case" })
 
 -- Surround
 set("v", "<leader>s(", "c(<Esc>pa)<Esc>", { desc = "Surround in ()" })
@@ -51,6 +44,7 @@ set("n", "<leader>a", "ggVG", { desc = "Select all" })
 
 -- Fold
 set("n", "<C-o>", "za")
+set("n", "<C-i>", "zM")
 
 -- Format
 set("n", "<leader>\\f", function()

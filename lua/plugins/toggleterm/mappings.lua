@@ -5,41 +5,7 @@ local set = vim.keymap.set
 local toggletermConfig = require("toggleterm.config")
 local size = toggletermConfig.get("size")
 
--- General
-set("n", "<M-v>", "<cmd>ToggleTerm direction=vertical size=60<cr>", { desc = "Show terminal vertically" })
-set("n", "<M-h>", "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Show terminal horizontally" })
-set("n", "<M-n>", "<cmd>ToggleTerm direction=tab<cr>", { desc = "Show terminal in a tab" })
-set("t", "<M-v>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
-set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
-set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
-
--- Send command to terminal
-local function sendCommand(direction)
-	local command = vim.fn.input("")
-	if command ~= "" then
-		toggleterm.exec(command, 1, size, "", direction)
-	end
-end
-
-set("n", "<leader>h", function() sendCommand("horizontal") end, { desc = "Send command to terminal (horizontal)" })
-set("n", "<leader>v", function() sendCommand("vertical") end, { desc = "Send command to terminal (vertical)" })
-
--- Run / Compile
-local function exec(command, focus)
-	local direction = vim.g.termfull and "tab" or toggletermConfig.get("direction")
-	toggleterm.exec(command, 1, size, "", direction, "Compile and Run", not focus)
-end
-
-local function runOrCompile(type)
-	local filetype = vim.bo.filetype
-	local file = vim.api.nvim_buf_get_name(0)
-
-	local command = ""
-	local before = ""
-	local after = ""
-
-	before = before .. "echo -ne \'\\033c\'; "
-
+local function getCommand(ft, type, file)
 	local commands = {
 		python = {
 			focus = true,
@@ -91,17 +57,55 @@ local function runOrCompile(type)
 	commands["bash"] = commands.sh
 	commands["zsh"] = commands.sh
 
-	if commands[filetype] == nil then
-		print("No command for " .. filetype .. " yet")
+	if commands[ft] == nil then
+		vim.print("No command for " .. ft .. " yet")
+		return nil
+	end
+
+	return commands[ft][type]
+end
+
+-- General
+set("n", "<M-v>", "<cmd>ToggleTerm direction=vertical size=60<cr>", { desc = "Show terminal vertically" })
+set("n", "<M-h>", "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Show terminal horizontally" })
+set("n", "<M-n>", "<cmd>ToggleTerm direction=tab<cr>", { desc = "Show terminal in a tab" })
+set("t", "<M-v>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
+set("t", "<M-h>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
+set("t", "<M-n>", "<cmd>ToggleTerm<cr>", { desc = "Hide terminal" })
+
+-- Send command to terminal
+local function sendCommand(direction)
+	local command = vim.fn.input("")
+	if command ~= "" then
+		toggleterm.exec(command, 1, size, "", direction)
+	end
+end
+
+set("n", "<leader>h", function() sendCommand("horizontal") end, { desc = "Send command to terminal (horizontal)" })
+set("n", "<leader>v", function() sendCommand("vertical") end, { desc = "Send command to terminal (vertical)" })
+
+-- Run / Compile
+local function exec(command, focus)
+	local direction = vim.g.termfull and "tab" or toggletermConfig.get("direction")
+	toggleterm.exec(command, 1, size, "", direction, "Compile and Run", not focus)
+end
+
+local function runOrCompile(type)
+	local ft = vim.bo.filetype
+	local file = vim.api.nvim_buf_get_name(0)
+
+	local command = getCommand(ft, type, file)
+	if command == nil then
+		vim.print("No " .. type .. " command for " .. ft .. " yet")
 		return
 	end
 
-	if commands[filetype][type] == nil then
-		print("No " .. type .. " command for " .. filetype .. " yet")
-		return
-	end
+	local before = ""
+	local after = ""
 
-	local focus = vim.g.termfocus and commands[filetype].focus
+	before = before .. "echo -ne \'\\033c\'; "
+
+	local focus = vim.g.termfocus and getCommand(ft, "focus", file)
 
 	if focus then
 		local shell = utils.getShell()
@@ -124,11 +128,11 @@ local function runOrCompile(type)
 		after = after .. shellCommands[shell] .. "; exit"
 	end
 
-	command = commands[filetype][type]
-	exec(before .. command .. after, focus)
+	command = before .. command .. after
+	exec(command, focus)
 
-	if commands[filetype].extra ~= nil then
-		commands[filetype].extra()
+	if getCommand(ft, "extra", file) ~= nil then
+		getCommand(ft, "extra", file)()
 	end
 end
 
