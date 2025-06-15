@@ -146,6 +146,4 @@ require("lazy").setup({
 		cmd = { "LiveServerStart", "LiveServerStop" },
 		config = true,
 	},
-
-	{ "Ron89/thesaurus_query.vim" },
 })
