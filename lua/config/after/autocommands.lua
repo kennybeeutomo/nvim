@@ -61,6 +61,23 @@ autocmd({"Filetype"}, {
 	desc = "Norg Options"
 })
 
+local autoViews = augroup("autoViews", { clear = true })
+autocmd({"BufWinEnter"}, {
+	group = autoViews,
+	command = "silent! loadview",
+	desc = "Restore folds"
+})
+autocmd({"BufWritePost"}, {
+	group = autoViews,
+	command = "mkview",
+	desc = "Save folds on file save"
+})
+autocmd({"QuitPre"}, {
+	group = autoViews,
+	command = "mkview",
+	desc = "Save folds on quit"
+})
+
 -- The events on which lualine redraws itself
 -- from https://github.com/nvim-lualine/lualine.nvim/issues/1293#issuecomment-2280456044
 local default_refresh_events = {"WinEnter","BufEnter","BufWritePost","SessionLoadPost","FileChangedShellPost","VimResized","Filetype","CursorMoved","CursorMovedI","ModeChanged"}
