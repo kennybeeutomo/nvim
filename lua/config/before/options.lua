@@ -66,6 +66,6 @@ vim.g.relativenumber = vim.o.relativenumber
 vim.g.iblchar = { 1, { "│", " " } }
 
 -- NEOVIDE ONLY
-vim.g.neovide_transparency = 0.8
+vim.g.neovide_opacity = 0.8
 vim.g.neovide_remember_window_size = true
-vim.o.guifont = "JetBrainsMono Nerd Font:h10"
+vim.o.guifont = "JetBrainsMono Nerd Font:h12"
