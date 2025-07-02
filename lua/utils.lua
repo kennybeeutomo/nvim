@@ -2,15 +2,14 @@ local M = {}
 
 function M.colorschemeExists(colorscheme)
 	-- Get the vimrc directory
-	local vimrcPath = vim.fn.substitute(vim.fn.expand("$MYVIMRC"), "init.lua", "", "")
+	local vimrcPath = vim.fs.dirname(vim.fn.expand("$MYVIMRC"))
 	-- Get the colorschemes directory
-	local colorschemesPath = vim.fn.glob(vimrcPath .. "lua/plugins/colorschemes/")
+	local colorschemesPath = vimrcPath .. "/lua/plugins/colorschemes/"
 	-- Get the list of colorschemes in that directory
-	local colorschemes = vim.fn.split(vim.fn.glob(colorschemesPath .. "*"), '\n')
+	local colorschemes = vim.fs.dir(colorschemesPath)
 	-- If colorscheme exists in the list, then load it
-	for _,v in pairs(colorschemes) do
-		local colorschemeFullPath = vim.fn.glob(colorschemesPath .. colorscheme)
-		if v == colorschemeFullPath then
+	for name, type in colorschemes do
+		if name == colorscheme and type == "directory" then
 			return true
 		end
 	end
@@ -71,7 +70,7 @@ function M.isWindows()
 end
 
 function M.getShell()
-	return vim.api.nvim_get_option_value("shell", {})
+	return vim.fs.basename(vim.api.nvim_get_option_value("shell", {}))
 end
 
 function M.spawnTerminal()

@@ -103,7 +103,11 @@ local function runOrCompile(type)
 	local before = ""
 	local after = ""
 
-	before = before .. "echo -ne \'\\033c\'; "
+	if utils.isWindows() then
+		before = before .. "cls; "
+	else
+		before = before .. "clear; "
+	end
 
 	local focus = vim.g.termfocus and getCommand(ft, "focus", file)
 
@@ -117,12 +121,9 @@ local function runOrCompile(type)
 			["cmd"] = "; pause",
 
 			-- Linux
-			["/bin/zsh"] = "; read -k 1 -sr",
-			["/usr/bin/zsh"] = "; read -k 1 -sr",
-			["/bin/bash"] = "; read -n1 -sr",
-			["/usr/bin/bash"] = "; read -n1 -sr",
-			["/bin/sh"] = "; read -n1 -sr",
-			["/usr/bin/sh"] = "; read -n1 -sr",
+			["zsh"] = "; read -k 1 -sr",
+			["bash"] = "; read -n1 -sr",
+			["sh"] = "; read -n1 -sr",
 		}
 
 		after = after .. shellCommands[shell] .. "; exit"
