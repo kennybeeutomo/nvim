@@ -33,7 +33,7 @@ local function getCommand(ft, type, file)
 			compile = "go build",
 			test = "go test",
 			clean = "go clean",
-			watch = "find *.go | entr -cs 'go run .'"
+			watch = "find . -name '*.go' | entr -cs 'go run .'"
 		},
 		rust = {
 			focus = true,
@@ -41,7 +41,7 @@ local function getCommand(ft, type, file)
 			compile = "cargo build",
 			test = "cargo test",
 			clean = "cargo clean",
-			watch = "find *.rs | entr -cs 'cargo run'"
+			watch = "find . -name '*.rs' | entr -cs 'cargo run'"
 		},
 		typst = {
 			focus = false,
@@ -49,6 +49,14 @@ local function getCommand(ft, type, file)
 			compile = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit",
 			watch = "typst watch " .. file .. " &> /dev/null &",
 			extra = function() toggleterm.toggle(1) end
+		},
+		haskell = {
+			focus = true,
+			run = "cabal run",
+			compile = "cabal build",
+			test = "cabal test",
+			clean = "cabal clean",
+			watch = "find . -name '*.hs' | entr -cs 'cabal run'"
 		}
 	}
 
