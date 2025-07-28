@@ -10,6 +10,8 @@ M.highlights = {
 		-- hl(0, "Visual", { reverse = true })
 		hl(0, "Search", { fg = colors.color0, bg = colors.color12 })
 		hl(0, "IncSearch", { fg = colors.color0, bg = colors.color4 })
+		hl(0, "Pmenu", { bg = colors.color0 })
+		hl(0, "PmenuSel", { bg = colors.color8 })
 	end,
 
 	terminal = function()

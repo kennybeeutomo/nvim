@@ -16,10 +16,10 @@ function M.setup()
 			-- completion = cmp.config.window.bordered(),
 			-- documentation = cmp.config.window.bordered(),
 			completion = {
-				winblend = 20,
+				winblend = 10,
 			},
 			documentation = {
-				winblend = 20,
+				winblend = 10,
 			}
 		},
 
