@@ -48,12 +48,6 @@ set("n", "<leader>a", "ggVG", { desc = "Select all" })
 set("n", "<C-o>", "za")
 set("n", "<C-i>", "zM")
 
--- Format
-set("n", "<leader>\\f", function()
-	local file = vim.api.nvim_buf_get_name(0)
-	vim.cmd("!clang-format -i " .. file)
-end, { desc = "clang-format current file" })
-
 -- Search
 set("n", "<esc>", "<cmd>noh<cr>")
 
@@ -62,6 +56,8 @@ set("n", "g?", "<cmd>WhichKey<cr>")
 
 -- Command Mode
 set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
+set("c", "<C-F>", "<Right>")
+set("c", "<C-B>", "<Left>")
 
 -- Terminal
 set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Go to normal mode in terminal" })
