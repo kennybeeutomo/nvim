@@ -65,19 +65,19 @@ local autoViews = augroup("autoViews", { clear = true })
 autocmd({"BufWinEnter"}, {
 	group = autoViews,
 	command = "silent! loadview",
-	desc = "Restore folds"
+	desc = "Restore folds on buffer open"
 })
 autocmd({"BufWritePost"}, {
 	group = autoViews,
 	command = "mkview",
 	desc = "Save folds on file save"
 })
-autocmd({"QuitPre"}, {
+autocmd({"BufWinLeave"}, {
 	group = autoViews,
 	callback = function()
 		if vim.api.nvim_buf_get_name(0) ~= "" then
 			vim.cmd("mkview")
 		end
 	end,
-	desc = "Save folds on quit"
+	desc = "Save folds on buffer close"
 })
