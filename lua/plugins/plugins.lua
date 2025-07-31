@@ -77,8 +77,6 @@ require("lazy").setup({
 	},
 	{
 		"nvim-neorg/neorg",
-		cmd = "Neorg",
-		ft = "norg",
 		version = "*",
 		config = function()
 			require("plugins.neorg").setup()
