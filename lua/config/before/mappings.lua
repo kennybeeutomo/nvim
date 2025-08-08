@@ -50,6 +50,7 @@ set("n", "<C-i>", "zM")
 
 -- Search
 set("n", "<esc>", "<cmd>noh<cr>")
+set("n", "?", "q/")
 
 -- WhichKey
 set("n", "g?", "<cmd>WhichKey<cr>")

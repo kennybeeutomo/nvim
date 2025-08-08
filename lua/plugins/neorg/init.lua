@@ -12,7 +12,6 @@ function M.setup()
 			["core.dirman"] = {
 				config = {
 					workspaces = {
-						life = "~/neorg/life",
 						todo = "~/neorg/todo",
 						temp = "~/neorg/temp",
 						notes = "~/neorg/notes",
