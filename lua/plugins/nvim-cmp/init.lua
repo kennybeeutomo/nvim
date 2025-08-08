@@ -1,9 +1,8 @@
 local M = {}
 
-function M.setup()
-	-- Set up nvim-cmp.
-	local cmp = require("cmp")
+local cmp = require("cmp")
 
+function M.setup()
 	cmp.setup({
 		snippet = {
 			-- REQUIRED - you must specify a snippet engine
@@ -29,41 +28,40 @@ function M.setup()
 			{ name = "nvim_lsp_signature_help" },
 			{ name = "lazydev", group_index = 0 },
 		}, {
-				{ name = "buffer" },
-			}),
+			{ name = "buffer" },
+		}),
 	})
 
-	-- Set configuration for specific filetype.
 	cmp.setup.filetype("gitcommit", {
 		sources = cmp.config.sources({
-			{ name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+			-- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+			{ name = "git" },
 		}, {
-				{ name = "buffer" },
-			})
+			{ name = "buffer" },
+		})
 	})
 
-	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won"t work anymore).
-	cmp.setup.cmdline({ "/", "?" }, {
-		-- mapping = cmp.mapping.preset.cmdline(),
+	-- To make cmp work in cmdwin
+	cmp.setup.filetype("vim", {
 		sources = cmp.config.sources({
-			{ name = "nvim_lsp_document_symbol" },
+			{ name = "path" },
 		}, {
-				{ name = "buffer" }
-			})
+			{ name = "cmdline" }
+		}, {
+			{ name = "buffer" }
+		}),
 	})
 
-	-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
-	cmp.setup.cmdline({ ":", "q:" }, {
+	cmp.setup.cmdline({ ":" }, {
 		-- mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {
-				{ name = "cmdline" }
-			}),
-		matching = { disallow_symbol_nonprefix_matching = false },
+			{ name = "cmdline" }
+		})
 	})
 
-	-- If you want insert `(` after select function or method item
+	-- Insert `(` after select function or method item
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	cmp.event:on(
 		"confirm_done",
