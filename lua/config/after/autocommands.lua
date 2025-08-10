@@ -67,18 +67,13 @@ autocmd({"BufWinEnter"}, {
 	command = "silent! loadview",
 	desc = "Restore folds on buffer open"
 })
-autocmd({"BufWritePost"}, {
-	group = autoViews,
-	command = "mkview",
-	desc = "Save folds on file save"
-})
-autocmd({"BufWinLeave"}, {
+autocmd({"BufWritePost", "BufWinLeave"}, {
 	group = autoViews,
 	callback = function()
 		-- For normal buffers only
-		if vim.opt.buftype == "" then
+		if vim.o.buftype == "" then
 			vim.cmd("mkview")
 		end
 	end,
-	desc = "Save folds on buffer close"
+	desc = "Save folds on buffer close and buffer save"
 })
