@@ -45,8 +45,7 @@ set("n", "<leader>s", "T{i<cr><esc>t}a<cr><esc>", { desc = "Expand curly braces"
 set("n", "<leader>a", "ggVG", { desc = "Select all" })
 
 -- Fold
-set("n", "<C-o>", "za")
-set("n", "<C-i>", "zM")
+set("n", "<Tab>", "za")
 
 -- Search
 set("n", "<esc>", "<cmd>noh<cr>")
@@ -62,7 +61,7 @@ set("c", "<C-B>", "<Left>")
 
 -- Terminal
 set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Go to normal mode in terminal" })
-set({"n", "t"}, "<M-m>", "<C-\\><C-n><C-w>p", { desc = "Go to normal mode in terminal" })
+set({"n", "t"}, "<M-m>", "<C-\\><C-n><C-w>p", { desc = "Move focus out of terminal" })
 set("n", "<leader><cr>", utils.spawnTerminal, { desc = "Spawn terminal in current directory" })
 
 -- pywal16
