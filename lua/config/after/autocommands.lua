@@ -71,7 +71,7 @@ autocmd({"BufWritePost", "BufWinLeave"}, {
 	group = autoViews,
 	callback = function()
 		-- For normal buffers only
-		if vim.o.buftype == "" then
+		if vim.o.buftype == "" and not vim.api.nvim_buf_get_name(0) == "" then
 			vim.cmd("mkview")
 		end
 	end,
