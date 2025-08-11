@@ -71,9 +71,11 @@ autocmd({"BufWritePost", "BufWinLeave"}, {
 	group = autoViews,
 	callback = function()
 		-- For normal buffers only
-		if vim.o.buftype == "" and not vim.api.nvim_buf_get_name(0) == "" then
-			vim.cmd("mkview")
-		end
+		if not vim.o.buftype == "" then return end
+		-- For named buffers only
+		if vim.api.nvim_buf_get_name(0) == "" then return end
+
+		vim.cmd("mkview")
 	end,
 	desc = "Save folds on buffer close and buffer save"
 })
