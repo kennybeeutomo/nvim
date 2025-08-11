@@ -11,8 +11,16 @@ cmp.setup({
 	mapping = {
 		["<C-y>"] = cmp.mapping.scroll_docs(-4),
 		["<C-e>"] = cmp.mapping.scroll_docs(4),
-		["<C-h>"] = cmp.mapping.abort(),
+		["<Tab>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+		["<C-o>"] = cmp.mapping.complete({
+			config = {
+				sources = {
+					{ name = "path" }
+				}
+			}
+		}),
 
 		["<C-j>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
