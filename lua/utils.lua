@@ -95,13 +95,15 @@ function M.cycle(sequence, n)
 	return sequence
 end
 
-function M.toggleNumbers(opt)
-	if opt == "r" then
-		vim.g.relativenumber = not vim.g.relativenumber
-	elseif opt == "n" then
-		vim.o.number = not vim.o.number
+function M.cycleNumbers()
+	if vim.o.number and vim.o.relativenumber then
+		vim.o.relativenumber = false
+	elseif vim.o.number and not vim.o.relativenumber then
+		vim.o.number = false
+	else
+		vim.o.number = true
+		vim.o.relativenumber = true
 	end
-	vim.o.relativenumber = vim.o.number and vim.g.relativenumber
 end
 
 return M

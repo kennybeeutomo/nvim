@@ -63,8 +63,6 @@ vim.g.termfull = false
 
 vim.g.autosave = false
 
-vim.g.relativenumber = vim.o.relativenumber
-
 vim.g.iblchar = { 1, { "│", " " } }
 
 -- NEOVIDE ONLY

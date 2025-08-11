@@ -19,10 +19,9 @@ set({"n", "v"}, "j", "gj")
 set({"n", "v"}, "k", "gk")
 
 -- Options
-set("n", "<leader>trn", function() utils.toggleNumbers("r") end, { desc = "Toggle Relative Number" })
-set("n", "<leader>tln", function() utils.toggleNumbers("n") end, { desc = "Toggle Line Numbers" })
 set("n", "<leader>tw", function() vim.o.wrap = not vim.o.wrap end, { desc = "Toggle Wrapping" })
 set("n", "<leader>tic", function() vim.o.ignorecase = not vim.o.ignorecase end, { desc = "Toggle Ignore Case" })
+set("n", "<C-o>", utils.cycleNumbers, { desc = "Cycle line number styles" })
 
 -- Surround
 set("v", "<leader>s(", "c(<Esc>pa)<Esc>", { desc = "Surround in ()" })
