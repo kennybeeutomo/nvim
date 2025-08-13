@@ -13,7 +13,6 @@ function M.setup()
 				config = {
 					workspaces = {
 						todo = "~/neorg/todo",
-						temp = "~/neorg/temp",
 						notes = "~/neorg/notes",
 					},
 				},
