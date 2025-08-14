@@ -23,6 +23,9 @@ vim.opt.shiftwidth = 4
 
 vim.opt.linebreak = true
 
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = "nc"
+
 vim.opt.clipboard:append("unnamedplus")
 
 vim.opt.fillchars = { eob = ' ' }
