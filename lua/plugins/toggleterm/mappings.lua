@@ -95,6 +95,7 @@ set("n", "<leader>v", function() sendCommand("vertical") end, { desc = "Send com
 -- Run / Compile
 local function exec(command, focus)
 	local direction = vim.g.termfull and "tab" or toggletermConfig.get("direction")
+	require("zen-mode").close()
 	toggleterm.exec(command, 1, size, "", direction, "Compile and Run", not focus)
 end
 
