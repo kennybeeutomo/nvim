@@ -66,7 +66,7 @@ vim.g.termfull = false
 
 vim.g.autosave = false
 
-vim.g.iblchar = { 1, { "│", " " } }
+vim.g.iblchar = { 2, { "│", " " } }
 
 -- NEOVIDE ONLY
 vim.g.neovide_opacity = 0.8
