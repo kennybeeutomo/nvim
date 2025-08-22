@@ -22,6 +22,7 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
 vim.opt.linebreak = true
+vim.opt.breakindent = true
 
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = "nc"
