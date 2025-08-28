@@ -13,6 +13,7 @@ set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 
 -- Editing
 set("i", "<C-BS>", "<Esc>vbc", { desc = "Delete word" })
+set("v", "<leader>r", "y:%s/<C-R>\"//g<Left><Left>", { desc = "Replace selected" })
 
 -- Navigation
 set({"n", "v"}, "j", "gj")
