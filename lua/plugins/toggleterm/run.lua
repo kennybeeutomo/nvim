@@ -45,7 +45,7 @@ local function getCommand(ft, type, file)
 		},
 		typst = {
 			focus = false,
-			run = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit",
+			run = "zathura \"$(echo " .. file .. " | sed 's/\\.typ/.pdf/')\" &> /dev/null & disown",
 			compile = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit",
 			watch = "typst watch " .. file .. " &> /dev/null &",
 			extra = function() toggleterm.toggle(1) end
