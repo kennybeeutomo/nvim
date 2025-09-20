@@ -57,7 +57,15 @@ local function getCommand(ft, type, file)
 			test = "cabal test",
 			clean = "cabal clean",
 			watch = "find . -name '*.hs' | entr -cs 'cabal run'"
-		}
+		},
+		java = { -- TODO: switch to maven
+			focus = true,
+			run = "javac *.java && java Main",
+			compile = "javac *.java",
+			test = nil,
+			clean = "rm *.class",
+			watch = "find . -name '*.java' | entr -cs 'java Main'"
+		},
 	}
 
 	commands["c"] = commands.make
