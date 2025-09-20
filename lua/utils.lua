@@ -106,4 +106,12 @@ function M.cycleNumbers()
 	end
 end
 
+function M.toggleConcealCursor()
+	if vim.o.concealcursor:find("n") then
+		vim.opt.concealcursor:remove("n")
+	else
+		vim.opt.concealcursor:append("n")
+	end
+end
+
 return M
