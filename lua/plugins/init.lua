@@ -21,7 +21,6 @@ load({
 	"autopairs",
 
 	"colorizer",
-	"autosave",
 	"zenmode",
 
 	"nvim-cmp",

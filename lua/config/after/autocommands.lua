@@ -79,3 +79,19 @@ autocmd({"BufWritePost", "BufWinLeave"}, {
 	end,
 	desc = "Save folds on buffer close and buffer save"
 })
+
+local autosave = augroup("autosave", { clear = true })
+autocmd({"InsertLeave", "TextChanged"}, {
+	group = autosave,
+	callback = function()
+		-- If autosave is off
+		if not vim.g.autosave then return end
+		-- For normal buffers only
+		if not vim.o.buftype == "" then return end
+		-- For named buffers only
+		if vim.api.nvim_buf_get_name(0) == "" then return end
+
+		vim.cmd("w")
+	end,
+	desc = "Autosave"
+})

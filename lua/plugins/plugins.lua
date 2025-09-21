@@ -73,9 +73,6 @@ require("lazy").setup({
 	},
 
 	{
-		"pocco81/auto-save.nvim",
-	},
-	{
 		"nvim-neorg/neorg",
 		version = "*",
 		config = function()

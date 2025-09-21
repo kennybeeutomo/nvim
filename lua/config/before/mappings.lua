@@ -10,6 +10,9 @@ set("n", "<leader>qw", "<cmd>wqa!<cr>", { desc = "Save and quit All" })
 set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 set("n", "<C-p>", "<cmd>q<cr>", { desc = "Quit" })
 set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
+set("n", "<leader>tas", function()
+	vim.g.autosave = not vim.g.autosave
+end, { desc = "Toggle Autosave" })
 
 -- Editing
 set("i", "<C-BS>", "<Esc>vbc", { desc = "Delete word" })
