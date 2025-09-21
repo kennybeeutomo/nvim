@@ -18,6 +18,7 @@ load({
 	"gitsigns",
 	"toggleterm",
 	"telescope",
+	"autopairs",
 
 	"colorizer",
 	"autosave",
