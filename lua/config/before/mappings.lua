@@ -12,6 +12,7 @@ set("n", "<C-p>", "<cmd>q<cr>", { desc = "Quit" })
 set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 set("n", "<leader>tas", function()
 	vim.g.autosave = not vim.g.autosave
+	vim.print("Autosave " .. (vim.g.autosave and "ON" or "OFF"))
 end, { desc = "Toggle Autosave" })
 
 -- Editing
@@ -53,9 +54,6 @@ set("n", "<Tab>", "za")
 -- Search
 set("n", "<esc>", "<cmd>noh<cr>")
 set("n", "?", "q/")
-
--- WhichKey
-set("n", "g?", "<cmd>WhichKey<cr>")
 
 -- Command Mode
 set("n", ";", "q:i", { desc = "Open command mode in vim mode" })

@@ -24,6 +24,7 @@ function M.setup()
 			-- }
 		}
 	})
+	require("plugins.neorg.autocommands")
 end
 
 return M

@@ -3,7 +3,6 @@ local augroup = vim.api.nvim_create_augroup
 
 local utils = require("utils")
 local set = vim.keymap.set
-local utilsIbl = require("plugins.indent-blankline.utils")
 
 local pywal = augroup("pywal", { clear = true })
 autocmd({"Signal"}, {
@@ -20,26 +19,6 @@ autocmd({"Signal"}, {
 	desc = "Reload pywal on SIGUSR1 signal, useful after changing wallpapers"
 })
 
-local commentstrings = augroup("commentstrings", { clear = true })
-autocmd({"Filetype"}, {
-	pattern = "hyprlang",
-	group = commentstrings,
-	callback = function()
-		vim.opt.commentstring = "# %s"
-	end,
-	desc = "Set commentstring for hyprland conf files"
-})
-
-local disableIbl = augroup("disableIbl", { clear = true })
-autocmd({"Filetype"}, {
-	pattern = "norg",
-	group = disableIbl,
-	callback = function()
-		utilsIbl.setcharBuffer(" ")
-	end,
-	desc = "Disable ibl for norg"
-})
-
 local localMappings = augroup("localMappings", { clear = true })
 autocmd({"BufRead"}, {
 	pattern = "colors-readable.txt",
@@ -51,15 +30,13 @@ autocmd({"BufRead"}, {
 })
 
 local localOptions = augroup("localOptions", { clear = true })
-autocmd({"Filetype"}, {
-	pattern = "norg",
-	group = localOptions,
-	callback = function()
-		vim.o.number = false
-		vim.o.relativenumber = false
-	end,
-	desc = "Norg Options"
-})
+-- autocmd({"Filetype"}, {
+-- 	pattern = "",
+-- 	group = localOptions,
+-- 	callback = function()
+-- 	end,
+-- 	desc = ""
+-- })
 
 local autoViews = augroup("autoViews", { clear = true })
 autocmd({"BufWinEnter"}, {
@@ -84,7 +61,7 @@ local autosave = augroup("autosave", { clear = true })
 autocmd({"InsertLeave", "TextChanged"}, {
 	group = autosave,
 	callback = function()
-		-- If autosave is off
+		-- Only if autosave is on
 		if not vim.g.autosave then return end
 		-- For normal buffers only
 		if not vim.o.buftype == "" then return end

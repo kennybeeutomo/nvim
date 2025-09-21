@@ -22,9 +22,7 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons"
 		},
 		event = "VeryLazy",
-		config = function()
-			require("plugins.devicons-auto-colors").setup()
-		end
+		config = require("plugins.devicons-auto-colors").setup,
 	},
 	{ "nvim-tree/nvim-tree.lua", },
 
@@ -54,9 +52,7 @@ require("lazy").setup({
 	{
 		"kwakzalver/duckytype.nvim",
 		cmd = { "DuckyType" },
-		config = function()
-			require("plugins.duckytype").setup()
-		end
+		config = require("plugins.duckytype").setup,
 	},
 
 	{
@@ -67,32 +63,19 @@ require("lazy").setup({
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
-		config = function()
-			require("plugins.markdownpreview").setup()
-		end,
+		config = require("plugins.markdownpreview").setup,
 	},
 
 	{
 		"nvim-neorg/neorg",
 		version = "*",
-		config = function()
-			require("plugins.neorg").setup()
-		end,
+		config = require("plugins.neorg").setup,
 	},
 
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		keys = {
-			{
-				"<leader>?",
-				function()
-					require("which-key").show({ global = false })
-				end,
-				desc = "Buffer Local Keymaps (which-key)",
-			},
-		},
-		opts = {},
+		config = require("plugins.whichkey").setup,
 	},
 
 	{ "oxfist/night-owl.nvim", },
@@ -101,7 +84,7 @@ require("lazy").setup({
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		opts = {},
+		config = require("plugins.autopairs").setup,
 	},
 	{
 		"folke/lazydev.nvim",

@@ -52,9 +52,7 @@ vim.filetype.add({
 		["functions"] = "bash",
 	},
 	pattern = {
-		[".*/hypr/.*%.conf"] = "hyprlang",
 		[".*/cava/config"] = "dosini",
-		[".*%.rasi"] = "rasi",
 		[".*%.h"] = "c",
 		[".*/uwsm/env.*"] = "sh",
 		[".*/.scripts/utils"] = "sh",
@@ -62,12 +60,7 @@ vim.filetype.add({
 })
 
 -- GLOBAL VARIABLES
-vim.g.termfocus = true
-vim.g.termfull = false
-
 vim.g.autosave = false
-
-vim.g.iblchar = { 2, { "│", " " } }
 
 -- NEOVIDE ONLY
 vim.g.neovide_opacity = 0.8
