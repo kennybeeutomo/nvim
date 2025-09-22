@@ -19,7 +19,7 @@ autocmd({"Signal"}, {
 	desc = "Reload pywal on SIGUSR1 signal, useful after changing wallpapers"
 })
 
-local localMappings = augroup("localMappings", { clear = true })
+local localMappings = augroup("localMappings", { clear = false })
 autocmd({"BufRead"}, {
 	pattern = "colors-readable.txt",
 	group = localMappings,
@@ -29,7 +29,7 @@ autocmd({"BufRead"}, {
 	desc = "Pywal Colors"
 })
 
-local localOptions = augroup("localOptions", { clear = true })
+local localOptions = augroup("localOptions", { clear = false })
 -- autocmd({"Filetype"}, {
 -- 	pattern = "",
 -- 	group = localOptions,
