@@ -15,6 +15,14 @@ local function isDefaultTheme(theme)
 	return true
 end
 
+local function autosave()
+	if vim.g.autosave then
+		return " "
+	else
+		return ""
+	end
+end
+
 function M.setup(theme)
 	if theme == nil or isDefaultTheme(theme) then
 		theme = "default"
@@ -42,7 +50,7 @@ function M.setup(theme)
 			lualine_a = {"mode"},
 			lualine_b = {"branch", "diff", "diagnostics"},
 			lualine_c = {"filename"},
-			lualine_x = {"encoding", "fileformat", "filetype"},
+			lualine_x = {autosave, "encoding", "fileformat", "filetype"},
 			lualine_y = {"progress"},
 			lualine_z = {"location"}
 		},
@@ -74,6 +82,8 @@ function M.setup(theme)
 		extensions = {}
 	}
 	-- 
+
+	require("plugins.lualine.autocommands")
 end
 
 return M

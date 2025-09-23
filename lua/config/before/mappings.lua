@@ -12,7 +12,7 @@ set("n", "<C-p>", "<cmd>q<cr>", { desc = "Quit" })
 set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 set("n", "<leader>tas", function()
 	vim.g.autosave = not vim.g.autosave
-	vim.print("Autosave " .. (vim.g.autosave and "ON" or "OFF"))
+	vim.api.nvim_exec_autocmds("User", { pattern = "AutosaveToggle" })
 end, { desc = "Toggle Autosave" })
 
 -- Editing
