@@ -23,6 +23,7 @@ load({
 	"zenmode",
 
 	"nvim-cmp",
+	"luasnip",
 	"lspconfig",
 	"dap",
 	"indent-blankline",
