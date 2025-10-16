@@ -14,8 +14,10 @@ end
 
 -- Execute command
 function M.exec(command, focus)
-	local direction = vim.g.termfull and "tab" or toggletermConfig.get("direction")
-	require("zen-mode").close()
+	local isZen = require("zen-mode.view").is_open()
+	local direction = toggletermConfig.get("direction")
+	if vim.g.termfull then direction = "tab" end
+	if isZen then direction = "float" end
 	toggleterm.exec(command, 1, size, "", direction, "Run", not focus)
 end
 
