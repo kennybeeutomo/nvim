@@ -68,6 +68,11 @@ local function getCommand(ft, type, file)
 			clean = "rm *.class",
 			watch = "find . -name '*.java' | entr -cs 'java Main'"
 		},
+		sql = {
+			focus = true,
+			run = "mariadb -u experimentation experimentation < " .. file,
+			watch = "find . -name '*.sql' | entr -cs 'mariadb -u experimentation experimentation < " .. file .. "'"
+		}
 	}
 
 	commands["c"] = commands.make
