@@ -6,6 +6,8 @@ local toggletermUtils = require("plugins.toggleterm.utils")
 local toggleterm = require("toggleterm")
 
 local function getCommand(ft, type, file)
+	local command = nil
+
 	local commands = {
 		python = {
 			focus = true,
@@ -73,12 +75,20 @@ local function getCommand(ft, type, file)
 	commands["bash"] = commands.sh
 	commands["zsh"] = commands.sh
 
-	if commands[ft] == nil then
+	command = commands[ft]
+
+	if vim.uv.fs_stat("run_commands.lua") ~= nil then
+		package.loaded.run_commands = nil
+		local command_override = require("run_commands")
+		command = vim.tbl_deep_extend("force", command, command_override)
+	end
+
+	if command == nil then
 		vim.print("No command for " .. ft .. " yet")
 		return nil
 	end
 
-	return commands[ft][type]
+	return command[type]
 end
 
 function M.run(type)
