@@ -6,73 +6,66 @@ local toggletermUtils = require("plugins.toggleterm.utils")
 local toggleterm = require("toggleterm")
 
 local function getCommand(ft, type, file)
-	local command = nil
+	local command = {
+		focus = true
+	}
 
 	local commands = {
-		python = {
-			focus = true,
-			run = "python " .. file,
-		},
-		lua = {
-			focus = true,
-			run = "lua " .. file,
-		},
-		sh = {
-			focus = true,
-			run = file,
-		},
-		make = {
-			focus = true,
-			run = "make && make run",
-			compile = "make",
-			test = "make test",
-			clean = "make clean",
-			watch = "make watch",
-		},
-		go = {
-			focus = true,
-			run = "go run .",
-			compile = "go build",
-			test = "go test",
-			clean = "go clean",
-			watch = "find . -name '*.go' | entr -cs 'go run .'"
-		},
-		rust = {
-			focus = true,
-			run = "cargo run",
-			compile = "cargo build",
-			test = "cargo test",
-			clean = "cargo clean",
-			watch = "find . -name '*.rs' | entr -cs 'cargo run'"
-		},
-		typst = {
-			focus = false,
-			run = "zathura \"$(echo " .. file .. " | sed 's/\\.typ/.pdf/')\" &> /dev/null & disown",
-			compile = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit",
-			watch = "typst watch " .. file .. " &> /dev/null &",
-			extra = function() toggleterm.toggle(1) end
-		},
-		haskell = {
-			focus = true,
-			run = "cabal run",
-			compile = "cabal build",
-			test = "cabal test",
-			clean = "cabal clean",
-			watch = "find . -name '*.hs' | entr -cs 'cabal run'"
-		},
-		java = { -- TODO: switch to maven
-			focus = true,
-			run = "javac *.java && java Main",
-			compile = "javac *.java",
-			test = nil,
-			clean = "rm *.class",
-			watch = "find . -name '*.java' | entr -cs 'java Main'"
-		},
-		sql = {
-			focus = true,
-			run = "mariadb -u experimentation experimentation < " .. file,
-			watch = "find . -name '*.sql' | entr -cs 'mariadb -u experimentation experimentation < " .. file .. "'"
-		}
+		python = function()
+			command.run = "python " .. file
+		end,
+		lua = function()
+			command.run = "lua " .. file
+		end,
+		sh = function()
+			command.run = file
+		end,
+		make = function()
+			command.run = "make && make run"
+			command.compile = "make"
+			command.test = "make test"
+			command.clean = "make clean"
+			command.watch = "make watch"
+		end,
+		go = function()
+			command.run = "go run ."
+			command.compile = "go build"
+			command.test = "go test"
+			command.clean = "go clean"
+			command.watch = "find . -name '*.go' | entr -cs '" .. command.run .. "'"
+		end,
+		rust = function()
+			command.run = "cargo run"
+			command.compile = "cargo build"
+			command.test = "cargo test"
+			command.clean = "cargo clean"
+			command.watch = "find . -name '*.rs' | entr -cs '" .. command.run .. "'"
+		end,
+		typst = function()
+			command.focus = false
+			command.run = "zathura \"$(echo " .. file .. " | sed 's/\\.typ/.pdf/')\" &> /dev/null & disown"
+			command.compile = "typst compile " .. file .. " && [ -z \"$(jobs)\" ] && exit"
+			command.watch = "typst watch " .. file .. " &> /dev/null &"
+			command.extra = function() toggleterm.toggle(1) end
+		end,
+		haskell = function()
+			command.run = "cabal run"
+			command.compile = "cabal build"
+			command.test = "cabal test"
+			command.clean = "cabal clean"
+			command.watch = "find . -name '*.hs' | entr -cs '" .. command.run .. "'"
+		end,
+		java = function() -- TODO: switch to maven
+			command.run = "javac *.java && java Main"
+			command.compile = "javac *.java"
+			command.test = nil
+			command.clean = "rm *.class"
+			command.watch = "find . -name '*.java' | entr -cs '" .. command.run .. "'"
+		end,
+		sql = function()
+			command.run = "mariadb -u mariadb test < " .. file
+			command.watch = "find . -name '*.sql' | entr -cs '" .. command.run .. "'"
+		end,
 	}
 
 	commands["c"] = commands.make
@@ -80,7 +73,9 @@ local function getCommand(ft, type, file)
 	commands["bash"] = commands.sh
 	commands["zsh"] = commands.sh
 
-	command = commands[ft]
+	if commands[ft] ~= nil then
+		commands[ft]()
+	end
 
 	if vim.uv.fs_stat("run_commands.lua") ~= nil then
 		package.loaded.run_commands = nil
@@ -88,7 +83,7 @@ local function getCommand(ft, type, file)
 		command = vim.tbl_deep_extend("force", command, command_override)
 	end
 
-	if command == nil then
+	if next(command) == nil then
 		vim.print("No command for " .. ft .. " yet")
 		return nil
 	end
