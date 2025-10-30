@@ -63,7 +63,7 @@ local function getCommand(ft, type, file)
 			command.watch = "find . -name '*.java' | entr -cs '" .. command.run .. "'"
 		end,
 		sql = function()
-			command.run = "mariadb -u mariadb test < " .. file
+			command.run = "mariadb -t -u mariadb test < " .. file
 			command.watch = "find . -name '*.sql' | entr -cs '" .. command.run .. "'"
 		end,
 	}
