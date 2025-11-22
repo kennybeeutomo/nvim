@@ -29,15 +29,6 @@ autocmd({"BufRead"}, {
 	desc = "Pywal Colors"
 })
 
-local localOptions = augroup("localOptions", { clear = false })
--- autocmd({"Filetype"}, {
--- 	pattern = "",
--- 	group = localOptions,
--- 	callback = function()
--- 	end,
--- 	desc = ""
--- })
-
 local autoViews = augroup("autoViews", { clear = true })
 autocmd({"BufWinEnter"}, {
 	group = autoViews,
