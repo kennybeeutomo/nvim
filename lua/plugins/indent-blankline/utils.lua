@@ -1,9 +1,10 @@
 local M = {}
 
+local ibl = require("ibl")
 local utils = require("utils")
 
 function M.setchar(iblchar)
-	require("ibl").overwrite({
+	ibl.overwrite({
 		indent = {
 			char = iblchar
 		},
@@ -12,7 +13,7 @@ function M.setchar(iblchar)
 end
 
 function M.setcharBuffer(iblchar)
-	require("ibl").setup_buffer(0, {
+	ibl.setup_buffer(0, {
 		indent = {
 			char = iblchar
 		},
@@ -21,8 +22,8 @@ function M.setcharBuffer(iblchar)
 end
 
 function M.toggle()
-	vim.g.iblchar = utils.cycle(vim.g.iblchar, 1)
-	M.setchar(utils.getSequence(vim.g.iblchar))
+	vim.g.iblchar = utils.cycle(vim.g.iblchar, vim.g.iblchars)
+	M.setchar(vim.g.iblchar)
 end
 
 return M

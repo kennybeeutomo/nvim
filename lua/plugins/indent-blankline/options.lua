@@ -1,1 +1,2 @@
-vim.g.iblchar = { 2, { "│", " " } }
+vim.g.iblchar = " "
+vim.g.iblchars = { "│", " " }

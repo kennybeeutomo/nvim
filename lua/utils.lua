@@ -83,16 +83,12 @@ function M.spawnTerminal()
 	vim.cmd(command)
 end
 
--- sequence = {index, table}
-function M.getSequence(sequence)
-	return sequence[2][sequence[1]]
-end
-
-function M.cycle(sequence, n)
-	sequence[1] = sequence[1] - 1
-	sequence[1] = (sequence[1] + n) % #sequence[2]
-	sequence[1] = sequence[1] + 1
-	return sequence
+function M.cycle(option, options)
+	for i, v in ipairs(options) do
+		if option == v then
+			return options[i % #options + 1]
+		end
+	end
 end
 
 function M.cycleNumbers()

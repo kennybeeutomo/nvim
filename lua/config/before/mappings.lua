@@ -28,6 +28,9 @@ set("n", "<leader>tw", function() vim.o.wrap = not vim.o.wrap end, { desc = "Tog
 set("n", "<leader>tic", function() vim.o.ignorecase = not vim.o.ignorecase end, { desc = "Toggle Ignore Case" })
 set("n", "<C-o>", utils.cycleNumbers, { desc = "Cycle line number styles" })
 set("n", "<leader>c", utils.toggleConcealCursor, { desc = "Toggle normal concealcursor" })
+set({"i", "v", "n"}, "<C-`>", function()
+	vim.o.virtualedit = utils.cycle(vim.o.virtualedit, {"all", ""})
+end, { desc = "Toggle Virtual Edit" })
 
 -- Surround
 set("v", "<leader>s(", "c(<Esc>pa)<Esc>", { desc = "Surround in ()" })
