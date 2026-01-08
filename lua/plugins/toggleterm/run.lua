@@ -5,6 +5,10 @@ local toggletermUtils = require("plugins.toggleterm.utils")
 
 local toggleterm = require("toggleterm")
 
+local function exists(file)
+	return vim.uv.fs_stat(file) ~= nil
+end
+
 local function getCommand(ft, type, file)
 	local command = {
 		focus = true
@@ -55,12 +59,16 @@ local function getCommand(ft, type, file)
 			command.clean = "cabal clean"
 			command.watch = "find . -name '*.hs' | entr -cs '" .. command.run .. "'"
 		end,
-		java = function() -- TODO: switch to maven
-			command.run = "javac *.java && java Main"
-			command.compile = "javac *.java"
-			command.test = nil
-			command.clean = "rm *.class"
-			command.watch = "find . -name '*.java' | entr -cs '" .. command.run .. "'"
+		java = function()
+			if exists("pom.xml") then
+				command.compile = "mvn package"
+				command.run = "mvn exec:java"
+			else
+				command.run = "javac *.java && java Main"
+				command.compile = "javac *.java"
+				command.clean = "rm *.class"
+				command.watch = "find . -name '*.java' | entr -cs '" .. command.run .. "'"
+			end
 		end,
 		sql = function()
 			command.run = "mariadb -t -u mariadb test < " .. file
@@ -77,7 +85,7 @@ local function getCommand(ft, type, file)
 		commands[ft]()
 	end
 
-	if vim.uv.fs_stat("run_commands.lua") ~= nil then
+	if exists("run_commands.lua") then
 		package.loaded.run_commands = nil
 		local command_override = require("run_commands")
 		command = vim.tbl_deep_extend("force", command, command_override)
