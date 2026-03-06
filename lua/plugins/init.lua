@@ -11,6 +11,7 @@ end
 load({
 	"mason",
 	"treesitter",
+	"autotag",
 
 	"nvtree",
 	"lualine",

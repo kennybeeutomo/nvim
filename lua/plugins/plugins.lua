@@ -14,6 +14,7 @@ require("lazy").setup({
 
 	{ "nvim-treesitter/nvim-treesitter", },
 	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+	{ "windwp/nvim-ts-autotag" },
 
 	{ "nvim-tree/nvim-web-devicons" },
 	{
