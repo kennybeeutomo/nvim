@@ -11,8 +11,14 @@ cmp.setup({
 	mapping = {
 		["<C-y>"] = cmp.mapping.scroll_docs(-4),
 		["<C-e>"] = cmp.mapping.scroll_docs(4),
-		["<Tab>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.abort()
+			else
+				cmp.complete()
+			end
+		end),
 
 		["<C-o>"] = cmp.mapping.complete({
 			config = {
