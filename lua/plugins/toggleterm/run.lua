@@ -74,12 +74,16 @@ local function getCommand(ft, type, file)
 			command.run = "mariadb -t -u mariadb test < " .. file
 			command.watch = "find . -name '*.sql' | entr -cs '" .. command.run .. "'"
 		end,
+		javascript = function()
+			command.run = "npm start"
+		end,
 	}
 
 	commands["c"] = commands.make
 	commands["cpp"] = commands.make
 	commands["bash"] = commands.sh
 	commands["zsh"] = commands.sh
+	commands["typescript"] = commands.javascript
 
 	if commands[ft] ~= nil then
 		commands[ft]()
