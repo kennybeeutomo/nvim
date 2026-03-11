@@ -114,14 +114,24 @@ require("lazy").setup({
 	{ "mfussenegger/nvim-dap" },
 	{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
 
-	{
-		"lukas-reineke/indent-blankline.nvim",
-	},
+	{ "lukas-reineke/indent-blankline.nvim" },
 
 	{
 		"barrett-ruth/live-server.nvim",
 		build = "npm add -g live-server",
 		cmd = { "LiveServerStart", "LiveServerStop" },
+		config = true,
+	},
+
+	{ 'stevearc/dressing.nvim' },
+
+	{
+		'nvim-flutter/flutter-tools.nvim',
+		lazy = false,
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'stevearc/dressing.nvim',
+		},
 		config = true,
 	},
 })
