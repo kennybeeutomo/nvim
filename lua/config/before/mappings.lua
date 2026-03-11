@@ -40,11 +40,6 @@ set("v", "<leader>s\'", "c'<Esc>pa'<Esc>", { desc = "Surround in ''" })
 set("v", "<leader>s\"", "c\"<Esc>pa\"<Esc>", { desc = "Surround in \"\"" })
 set("v", "<leader>s<", "c<<Esc>pa><Esc>", { desc = "Surround in <>" })
 
--- Buffers
-set("n", "L", "<cmd>bn<cr>", { desc = "Next Buffer" })
-set("n", "H", "<cmd>bN<cr>", { desc = "Previous Buffer" })
-set("n", "<C-B>", "<cmd>bd!<cr><cmd>bN<cr>", { desc = "Delete buffer" })
-
 -- Beautifier
 set("n", "<leader>s", "T{i<cr><esc>t}a<cr><esc>", { desc = "Expand curly braces" })
 

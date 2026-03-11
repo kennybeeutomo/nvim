@@ -17,6 +17,8 @@ function M.setup()
 			show_buffer_close_icons = false,
 		},
 	})
+
+	require("plugins.bufferline.mappings")
 end
 
 return M
