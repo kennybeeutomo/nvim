@@ -13,7 +13,7 @@ function M.deleteCurrentBuffer()
 	else
 		bufferline.cycle(-1)
 	end
-	vim.api.nvim_buf_delete(bufferNumber, { force = true })
+	vim.cmd("bw! " .. bufferNumber)
 end
 
 return M
