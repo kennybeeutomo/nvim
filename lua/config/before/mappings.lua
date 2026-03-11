@@ -18,6 +18,8 @@ end, { desc = "Toggle Autosave" })
 -- Editing
 set("i", "<C-BS>", "<Esc>vbc", { desc = "Delete word" })
 set("v", "<leader>r", "y:%s/<C-R>\"//g<Left><Left>", { desc = "Replace selected" })
+set("n", "<", "<<")
+set("n", ">", ">>")
 
 -- Navigation
 set({"n", "v"}, "j", "gj")
@@ -39,9 +41,6 @@ set("v", "<leader>s{", "c{<Esc>pa}<Esc>", { desc = "Surround in {}" })
 set("v", "<leader>s\'", "c'<Esc>pa'<Esc>", { desc = "Surround in ''" })
 set("v", "<leader>s\"", "c\"<Esc>pa\"<Esc>", { desc = "Surround in \"\"" })
 set("v", "<leader>s<", "c<<Esc>pa><Esc>", { desc = "Surround in <>" })
-
--- Beautifier
-set("n", "<leader>s", "T{i<cr><esc>t}a<cr><esc>", { desc = "Expand curly braces" })
 
 -- Selection
 set("n", "<leader>a", "ggVG", { desc = "Select all" })
