@@ -10,6 +10,8 @@ local function exists(file)
 end
 
 local function getCommand(ft, type, file)
+	file = '"' .. file .. '"'
+
 	local command = {
 		focus = true
 	}
