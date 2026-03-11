@@ -1,3 +1,3 @@
-vim.opt.conceallevel = 2
-vim.o.number = false
-vim.o.relativenumber = false
+vim.opt_local.conceallevel = 2
+vim.opt_local.number = false
+vim.opt_local.relativenumber = false
