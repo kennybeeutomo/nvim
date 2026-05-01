@@ -39,13 +39,9 @@ local keymaps = {
 		actions = {
 			goto_previous_end = {
 				["<C-,>"] = { query = "@parameter.inner", desc = "Go to previous parameter" },
-				["<C-n>"] = { query = "@block.outer", desc = "Go to previous block" },
-				["<C-;>"] = { query = "@assignment.lhs", desc = "Go to LHS" },
 			},
 			goto_next_end = {
 				["<C-.>"] = { query = "@parameter.inner", desc = "Go to next parameter" },
-				["<C-m>"] = { query = "@block.outer", desc = "Go to next block" },
-				["<C-'>"] = { query = "@assignment.rhs", desc = "Go to RHS" },
 			},
 		}
 	},
