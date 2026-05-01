@@ -120,6 +120,10 @@ M.highlights = {
 	telescope = function()
 		hl(0, "TelescopeSelection", { fg = colors.color0, bg = colors.color12 })
 	end,
+
+	nvimtree = function()
+		hl(0, "NvimTreeRootFolder", { fg = colors.color13 })
+	end,
 }
 
 function M.setup()
