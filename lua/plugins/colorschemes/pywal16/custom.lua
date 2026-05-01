@@ -115,7 +115,11 @@ M.highlights = {
 		hl(0, "DapUIWatchesError", { fg = colors.color9 })
 		hl(0, "DapUIStop", { fg = colors.color9 })
 		hl(0, "DapUIStopNC", { fg = colors.color9 })
-	end
+	end,
+
+	telescope = function()
+		hl(0, "TelescopeSelection", { fg = colors.color0, bg = colors.color12 })
+	end,
 }
 
 function M.setup()

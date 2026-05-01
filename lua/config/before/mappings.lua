@@ -18,8 +18,6 @@ end, { desc = "Toggle Autosave" })
 -- Editing
 set("i", "<C-BS>", "<Esc>vbc", { desc = "Delete word" })
 set("v", "<leader>r", "y:%s/<C-R>\"//g<Left><Left>", { desc = "Replace selected" })
-set("n", "<", "<<")
-set("n", ">", ">>")
 
 -- Navigation
 set({"n", "v"}, "j", "gj")
