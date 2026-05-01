@@ -12,8 +12,15 @@ require("lazy").setup({
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
 
-	{ "nvim-treesitter/nvim-treesitter", },
-	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+	{ "nvim-treesitter/nvim-treesitter" },
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		init = function()
+			vim.g.no_plugin_maps = true
+		end,
+	},
+	{ "shushtain/incselect.nvim" },
 	{ "windwp/nvim-ts-autotag" },
 
 	{ "nvim-tree/nvim-web-devicons" },
@@ -71,6 +78,10 @@ require("lazy").setup({
 		"nvim-neorg/neorg",
 		version = "*",
 		config = require("plugins.neorg").setup,
+		dependencies = {
+			"nvim-neorg/tree-sitter-norg",
+			"nvim-neorg/tree-sitter-norg-meta",
+		}
 	},
 
 	{
