@@ -51,7 +51,7 @@ set("n", "<esc>", "<cmd>noh<cr>")
 set("n", "?", "q/")
 
 -- Command Mode
-set("n", ";", "q:i", { desc = "Open command mode in vim mode" })
+set("n", "<leader>;", "q:i", { desc = "Open command mode in vim mode" })
 set("c", "<C-F>", "<Right>")
 set("c", "<C-B>", "<Left>")
 
