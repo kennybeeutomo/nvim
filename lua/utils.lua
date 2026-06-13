@@ -110,4 +110,16 @@ function M.toggleConcealCursor()
 	end
 end
 
+function M.updateMinimalUI()
+	if vim.g.minimal then
+		vim.o.laststatus = 0
+		vim.o.showtabline = 0
+		vim.o.cmdheight = 0
+	else
+		vim.o.laststatus = 2
+		vim.o.showtabline = 2
+		vim.o.cmdheight = 1
+	end
+end
+
 return M

@@ -31,6 +31,7 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.fillchars = { eob = ' ' }
 
 vim.opt.showmode = false
+vim.opt.ruler = false
 
 vim.opt.shortmess:append({ I = true })
 
@@ -59,7 +60,8 @@ vim.filetype.add({
 })
 
 -- GLOBAL VARIABLES
-vim.g.autosave = false
+vim.g.autosave = vim.g.autosave or false
+vim.g.minimal = vim.g.minimal or false
 
 -- NEOVIDE ONLY
 vim.g.neovide_opacity = 0.8
