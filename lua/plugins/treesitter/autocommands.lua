@@ -7,6 +7,7 @@ autocmd('BufRead', {
 	callback = function()
 		local installed_parsers = require("nvim-treesitter").get_installed()
 		if vim.tbl_contains(installed_parsers, vim.bo.filetype) then
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 			vim.treesitter.start()
 			return
 		end

@@ -123,7 +123,13 @@ require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip" },
 
 	{ "mfussenegger/nvim-dap" },
-	{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio"
+		}
+	},
 
 	{ "lukas-reineke/indent-blankline.nvim" },
 
