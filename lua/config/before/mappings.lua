@@ -23,6 +23,11 @@ set("v", "<leader>r", "y:%s/<C-R>\"//g<Left><Left>", { desc = "Replace selected"
 set({"n", "v"}, "j", "gj")
 set({"n", "v"}, "k", "gk")
 
+-- buffers
+set("n", "L", "<cmd>bn<cr>", { desc = "Next Buffer" })
+set("n", "H", "<cmd>bN<cr>", { desc = "Previous Buffer" })
+set("n", "<C-B>", utils.cleanBufferDelete, { desc = "Delete Buffer" })
+
 -- Options
 set("n", "<leader>tw", function() vim.o.wrap = not vim.o.wrap end, { desc = "Toggle Wrapping" })
 set("n", "<leader>tic", function() vim.o.ignorecase = not vim.o.ignorecase end, { desc = "Toggle Ignore Case" })
@@ -55,12 +60,12 @@ set("n", "<leader>m", function()
 end, { desc = "Toggle Minimal UI" })
 
 -- Surround
-set("v", "<leader>s(", "c(<Esc>pa)<Esc>", { desc = "Surround in ()" })
-set("v", "<leader>s[", "c[<Esc>pa]<Esc>", { desc = "Surround in []" })
-set("v", "<leader>s{", "c{<Esc>pa}<Esc>", { desc = "Surround in {}" })
-set("v", "<leader>s\'", "c'<Esc>pa'<Esc>", { desc = "Surround in ''" })
-set("v", "<leader>s\"", "c\"<Esc>pa\"<Esc>", { desc = "Surround in \"\"" })
-set("v", "<leader>s<", "c<<Esc>pa><Esc>", { desc = "Surround in <>" })
+set("v", "s(", "c(<Esc>pa)<Esc>", { desc = "Surround in ()" })
+set("v", "s[", "c[<Esc>pa]<Esc>", { desc = "Surround in []" })
+set("v", "s{", "c{<Esc>pa}<Esc>", { desc = "Surround in {}" })
+set("v", "s\'", "c'<Esc>pa'<Esc>", { desc = "Surround in ''" })
+set("v", "s\"", "c\"<Esc>pa\"<Esc>", { desc = "Surround in \"\"" })
+set("v", "s<", "c<<Esc>pa><Esc>", { desc = "Surround in <>" })
 
 -- Selection
 set("n", "<leader>a", "ggVG", { desc = "Select all" })

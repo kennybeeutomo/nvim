@@ -122,4 +122,10 @@ function M.updateMinimalUI()
 	end
 end
 
+function M.cleanBufferDelete()
+	local bufferNumber = vim.fn.bufnr()
+	vim.cmd("bprevious")
+	vim.cmd("bw! " .. bufferNumber)
+end
+
 return M
