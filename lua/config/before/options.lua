@@ -39,10 +39,6 @@ vim.opt.shortmess:append({ I = true })
 -- Set oldfiles limit to 10000
 vim.opt.shada = string.gsub(vim.o.shada, "'%d+", "'10000", 1)
 
-vim.wo.foldlevel = 20
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-
 vim.opt.termguicolors = true
 
 -- Filetype detection
