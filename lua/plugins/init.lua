@@ -30,6 +30,7 @@ load({
 	"luasnip",
 	"lspconfig",
 	"dap",
+	"conform",
 	"indent-blankline",
 	"dressing",
 })

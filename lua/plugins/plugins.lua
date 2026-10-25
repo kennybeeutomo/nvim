@@ -136,6 +136,8 @@ require("lazy").setup({
 		}
 	},
 
+	{ 'stevearc/conform.nvim', },
+
 	{ "lukas-reineke/indent-blankline.nvim" },
 
 	{
