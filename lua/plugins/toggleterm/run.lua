@@ -64,12 +64,26 @@ local function getCommand(ft, type, file)
 		java = function()
 			if exists("pom.xml") then
 				command.compile = "mvn package"
+				command.test = "mvn test"
+				command.clean = "mvn clean"
 				command.run = "mvn exec:java"
 			else
 				command.run = "javac *.java && java Main"
 				command.compile = "javac *.java"
 				command.clean = "rm *.class"
 				command.watch = "find . -name '*.java' | entr -cs '" .. command.run .. "'"
+			end
+		end,
+		kotlin = function()
+			if exists("pom.xml") then
+				command.compile = "mvn package"
+				command.test = "mvn test"
+				command.clean = "mvn clean"
+			else
+				command.run = "kotlinc *.kt && kotlin MainKt"
+				command.compile = "kotlinc *.kt"
+				command.clean = "rm *.class"
+				command.watch = "find . -name '*.kt' | entr -cs '" .. command.run .. "'"
 			end
 		end,
 		sql = function()
@@ -94,7 +108,7 @@ local function getCommand(ft, type, file)
 	if exists("run_commands.lua") then
 		package.loaded.run_commands = nil
 		local command_override = require("run_commands")
-		command = vim.tbl_deep_extend("force", command, command_override)
+		command = vim.tbl_deep_extend("force", command, command_override(file, command))
 	end
 
 	if next(command) == nil then

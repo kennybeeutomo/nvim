@@ -28,6 +28,9 @@ function M.setup()
 		vim.lsp.config(ls, config)
 	end
 
+	-- Enable locally installed LSPs (not installed from Mason)
+	vim.lsp.enable({"kotlin_lsp"})
+
 	require("plugins.lspconfig.mappings")
 end
 
