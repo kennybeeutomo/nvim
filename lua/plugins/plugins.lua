@@ -96,7 +96,11 @@ require("lazy").setup({
 		opts = {
 			library = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			}
+			},
+
+			enabled = function(root_dir)
+				return root_dir:match("^.*%.config/nvim$")
+			end,
 		},
 	},
 
@@ -123,6 +127,8 @@ require("lazy").setup({
 		}
 	},
 
+	{ 'stevearc/conform.nvim', },
+
 	{ "lukas-reineke/indent-blankline.nvim" },
 
 	{
@@ -133,14 +139,4 @@ require("lazy").setup({
 	},
 
 	{ 'stevearc/dressing.nvim' },
-
-	{
-		'nvim-flutter/flutter-tools.nvim',
-		lazy = false,
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-			'stevearc/dressing.nvim',
-		},
-		config = true,
-	},
 })
